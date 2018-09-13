@@ -23,3 +23,54 @@ if ( !is_wp_error( $user ) &&   !is_user_logged_in())
     wp_set_auth_cookie  ( $user->ID );
 
 }
+
+<h3>Declaring WooCommerce support in themes(custom themes)</h3>
+
+function mytheme_add_woocommerce_support() {
+	add_theme_support( 'woocommerce' );
+}
+add_action( 'after_setup_theme', 'mytheme_add_woocommerce_support' );
+
+<h3>Passing Value from template file to header</h3>
+
+STEP1:
+// in template file
+global $template_var;
+$template_var = 'Test value'
+get_header();
+
+// in header.php
+global $template_var;
+echo $template_var; // 'Test value'
+
+<h3>Hooks</h3>
+There are two types of hooks: actions and filters.
+*Actions allow you to add extra functionality at a specific point in the processing of the page—for example, you might want to add extra widgets or menus, or add a promotional message to your page.
+*Filters allow you to intercept and modify data as it is processed—for example, you might want to insert another CSS class in a WordPress HTML element, or modify some of your pages blocks.
+
+In brief: actions do stuff; filters change stuff.
+
+
+*Actions:
+1. add_action
+2. do_action
+3. remove_action
+
+do_action : Registers an action hook while add_action : adds a callback function to the registered hook.
+
+do_action( ‘after_gill_arrives’ , $gill_has_keys = true , $gill_has_car = true );
+This tells WordPress to create a hook called ‘after_gill_arrives’, run any actions that are attached to this hook, and pass the arguments $gill_has_keys and $gill_has_car to those actions (the 2 arguments we specified above).
+
+*Filters:
+1. add_filter
+2. apply_filter
+
+*Priority:
+add_action('init', 'run_me_early', 9);  
+add_action('init', 'run_me_normal');    // default value of 10 is used since a priority wasn't specified
+add_action('init', 'run_me_late', 11);
+
+The first function to run will be run_me_early(), followed by run_me_normal(), and finally the last one to run will be run_me_late().
+
+Reference: https://docs.presscustomizr.com/article/26-wordpress-actions-filters-and-hooks-a-guide-for-non-developers
+
