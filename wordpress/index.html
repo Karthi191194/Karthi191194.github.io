@@ -76,4 +76,36 @@ Eg: <CODE>the_terms( $post->ID, 'category' ); </CODE>
 
 <p><strong>Default Taxonomies: </strong>Category, Tag, ....</p>
 <hr>
+<h3>Pagination</h3>
+*<code>echo paginate_links();</code><br>
+Output: « Prev 1 … 3 4 5 6 7 … 9 Next »<br><br>
+*<code>previous_posts_link();</code><br>
+<code>next_posts_link();</code>
+<hr>
+<h3>Custom Query with Pagination</h3>
+<pre>
+<strong>$current_page = ( get_query_var('paged') ) ? get_query_var('paged') : 1; //get current page no from URL</strong>
 
+$about_post = new WP_Query(array('category_name' => 'about', 
+				 'post_per_page' => 3,
+				 <strong>'paged' => $current_page //get post from current page</strong>	));</pre>
+<br>//the above object will get all the post from the category "about" and displays 3 posts per page.<br>
+<pre>
+if($about_post -> have_posts()): //check if it has post
+	while($about_post -> have_posts()): //loop 
+		$about_post -> the_post(); //we need to call "the_post" method to get details of each post
+		the_title(); // displays the title of each post
+	endwhile;
+	
+	$max_pages = $about_post->max_num_pages; //total no of pages
+	
+	next_posts_link('Next Page', $max_pages); //ordinary pagination
+	
+	previous_posts_link(); //ordinary pagination
+	
+	echo paginate_links(array('total' => $max_pages)); //numbered pagination
+	
+endif;
+</pre>
+<p>NOTE: <br>next_posts_link() and paginate_links() will not work as it is on custom query.<br>previous_posts_link() will work on custom query.</p>
+<hr>
