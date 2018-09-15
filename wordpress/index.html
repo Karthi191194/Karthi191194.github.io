@@ -64,3 +64,16 @@ echo $template_var; // 'Test value'
 <p>The first function to run will be run_me_early(), followed by run_me_normal(), and finally the last one to run will be run_me_late().</p>
 <p>Reference: https://docs.presscustomizr.com/article/26-wordpress-actions-filters-and-hooks-a-guide-for-non-developers</p>
 <hr>
+<h3>Taxonomy</h3>
+<p>Taxonomy is a way to group things together.</P>
+<strong>SYNTAX: </strong><CODE> the_terms( $id, $taxonomy); </CODE> <br>
+Eg: <CODE>the_terms( $post->ID, 'category' ); </CODE>
+<p>This will display all the categories of the current post.</p>
+
+<p>In WordPress, terms refers to the items in a taxonomy.</p>
+
+<p>For example, a website has categories books, politics, and blogging in it. While category itself is a taxonomy the items inside it are called terms.</p>
+
+<p><strong>Default Taxonomies: </strong>Category, Tag, ....</p>
+<hr>
+
