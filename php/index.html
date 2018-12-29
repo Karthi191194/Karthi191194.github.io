@@ -1,0 +1,139 @@
+<pre>
+$abc = "abc.jpg";
+$def = explode('.', $abc);  converts string to array
+$ghi = end($def); - display last in tha array
+echo $ghi;
+
+in_array("23", $people)-check in array
+
+trim(string,charlist) -remove white space
+
+global $x, $y; $GLOBALS['y'] = $GLOBALS['x'] + $GLOBALS['y'];
+
+@ - error control operator
+
+htmlspecialchars($str) - shows the html itself without converting
+
+serialize
+encode
+
+When the left part is an object instance, you use ->. Otherwise, you use :: 
+
+strip_tags()- t
+
+extract()
+
+
+htmlspecialchars - HTML escaped code
+
+These variables are called attribute of the object once an object is created.
+
+
+-------------
+
+
+	                          	OOPS
+
+Member variable - variable inside class
+Member function - function inside class
+
+
+Abstract class - cannot be instantiated (obj), only inherited (sub class)
+
+Static Keyword-*Declaring class members or methods as static makes them accessible without needing an instantiation of the class.
+*A member declared as static can not be accessed with an instantiated class object (though a static method can).
+
+Final Keyword-prevents child classes from overriding a method
+
+
+Static class method:
+
+add_filter( 'media_upload_newtab', array( 'My_Class', 'media_upload_callback' ) );
+
+Instance method:
+
+add_filter( 'media_upload_newtab', array( $this, 'media_upload_callback' ) );
+
+
+--------------------
+
+you can make it static variable, so you will be able to call it anytime anywhere, the diff is that instead of
+
+$this->lang;
+
+when editing it(Works inside class game only) you do :
+
+self::$lang;
+and when you call/edit it (Works everywhere) from anther class you do :
+
+game::$lang
+
+
+-----------------
+
+private - class
+protected - class, sub class
+public - class, sub class, object
+
+
+$var = "way";
+echo "Two {$var}s to define a variable in a string.";
+
+
+---------
+
+git clone URL
+1.git pull orgin master
+
+git config - user name nd pwd
+
+git branch
+git status
+git commit -m "msg" {wpcontent} - replacing existing files
+git add {filepath} - adding new files
+git commit
+git status
+git push orgin master
+</pre>
+<hr>
+<h2>Codeignitor</h2>
+<pre>
+DB config - /applications/config/database.php
+Base URL config - /applications/config/config.php
+Route config - /applications/config/routes.php
+
+Controller:
+class Page extends CI_Controller 
+
+		$this->load->model('users');
+		$this->load->view($data['theme'].'/page', $data);
+</pre>
+</hr>
+<h2>Google Crawl</h2>
+Crawling is the process by which Googlebot discovers new and updated pages to be added to the Google index. 
+<br>
+Google search console - to test <br>
+https://www.google.com/webmasters/tools/ 
+<br>
+https://www.google.com/webmasters/tools/googlebot-fetch?hl=en&siteUrl=https://fletcherchiropracticllc.com/
+<hr>
+<h2>Onload</h2>
+<pre>
+
+      window.addEventListener("load",foo);
+      window.addEventListener("load",bar);
+      function foo(){
+        alert("this");
+      }
+      function bar(){
+        alert("that");
+      }
+
+
+
+window.onload = function () { .... };
+</pre>
+<hr>
+<h2>Dynamic class method invocation in PHP</h2>
+call_user_func() and call_user_func_array()
+<hr>
