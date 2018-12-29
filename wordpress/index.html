@@ -128,3 +128,23 @@ if ( isset ( $wp_query->query_vars['product_cat'] ) && $wp_query->is_main_query(
 add_filter('pre_get_posts', 'exclude_product_cat_children');
 </pre>
 <hr>
+<h2>Programmatically login a user without a password:</h2>
+<pre>
+$username = "admin";
+$user = get_user_by('login', $username );
+
+
+if ( !is_wp_error( $user ) &&   !is_user_logged_in())
+{
+    wp_clear_auth_cookie();
+    wp_set_current_user ( $user->ID );
+    wp_set_auth_cookie  ( $user->ID );
+
+}
+</pre>
+<hr>
+<pre>
+$queried_object = get_queried_object();
+ var_dump( $queried_object );
+</pre>
+</hr>
