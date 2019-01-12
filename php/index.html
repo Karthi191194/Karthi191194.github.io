@@ -137,3 +137,76 @@ window.onload = function () { .... };
 <h2>Dynamic class method invocation in PHP</h2>
 call_user_func() and call_user_func_array()
 <hr>
+<h2>Closure</h2>
+<pre>
+$msg = 'Hello';
+
+ $closure = function () use ($msg) {
+
+    var_dump($msg);
+
+ };
+
+ $closure();
+</pre>
+<hr>
+<h2>Tips</h2>
+*expected return needs to be at last.. check conditions before that and return it, if it fails.
+*handle error first
+<hr>
+<h2>Upgrading xampp PHP version on windows</h2>
+Step 1: First download the latest php version from http://windows.php.net/download#php-7.0<br>
+Step 2: Download the VC14 x86(for PHP 7.0) Thread Safe or VC14 x64(for PHP 7.0) Thread Safe deciding upon your Windows version( x86 for 32-bit and x64 for 64-bit ).<br>
+Step 3: Next extract the zip file in a folder and rename php.<br>
+Step 4:  Go to your XAMPP installation directory and rename your old php directory with old version prefix like php to php_5_6_36. Now copy & paste the extracted new php folder to here.<br>
+Step 5: Next, open httpd-xampp.conf from XAMPP configuration.<br>
+
+On PHP-Module setup section, comment these two lines and add the two lines below
+
+#
+# PHP-Module setup
+#
+#LoadFile “D:/xampp/php/php5ts.dll”
+#LoadModule php5_module “D:/xampp/php/php5apache2_4.dll”
+LoadFile “D:/xampp/php/php7ts.dll”
+LoadModule php7_module “D:/xampp/php/php7apache2_4.dll”
+Step 6: Now restart your XAMPP server and keep coding.<br>
+Step 7: Error Handling:
+1. Close the SKYPE, may be PORT issue.
+2. The XAMPP may be in x86 but the PHP is x64(see architecture in phpinfo() below changing the php)
+3. Navigate to XAMPP, click apache_start.bat. a cmd prompt will be displayed with detailed error info.
+4. phpmyadmin issue - no php.ini file, add the php.ini file.
+<hr>
+<h2>Interface - OOPS</h2>
+<PRE>
+Implements Interface is like blue print of class.
+eg: interface aaa{
+	public function bb(){}
+}
+
+class implementing the aaa should have bb() function else will throw an error.
+class abc implements aaa{
+	public function bb(){
+		echo "bb";
+	}
+}
+</PRE>
+<hr>
+<h2>REST(Represententional State Transfer) API</h2>
+1.If we need to get the weather of a location we need to set sensor throughout the city but it cost more money.
+2.We can get the weather data from webservices(webservices is something like web sever and we accessing it).
+Here comes rest api.
+3. In which format server responds in JSON or XML  is called "representation".
+4. The data is mentioned as "resource".
+5. The rest is design archieture.
+6. address of thre resource - URI http://www.example.com/UK/london
+must have one URI(uk)
+<hr>
+The difference is that a Web service facilitates interaction between two machines over a network. An API acts as an interface between two different applications so that they can communicate with each other.<br>
+Any web service that is defined on the principles of REST can be called a RestFul web service. <br>
+REST is a set of rules/standards/guidelines for how to build a web API.
+<hr>
+<h2>JSON</h2>
+PHP FUNCTIONS
+*glob()
+*list()
