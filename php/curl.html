@@ -1,0 +1,96 @@
+<h1>CURL</h1>
+<p>Body - form data | Post method</p>
+<pre>
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL,"https://api.neverbounce.com/v4/single/check");
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS,"key=".$api_key."&email=".$email."");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$server_output = curl_exec($ch);
+curl_close ($ch);
+$email_response = json_decode($server_output);
+</pre>
+<hr>
+<p>Body - raw(JSON inputs) | Post method | Auth-Token</p>
+<pre>
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL,"https://api.experianmarketingservices.com/sync/queryresult/PhoneValidate/3.0/");
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, '{ "Number": "'.$_POST['jform']['com_fields']['phone'].'"}');
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$headers = array();
+array_push($headers, "Auth-Token: e358e770-80d5-4777-8e0d-1b3690b31581");
+array_push($headers, "Cache-Control: no-cache");
+array_push($headers, "Pragma: no-cache");
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+$phone_response = curl_exec($ch);
+$code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+curl_close ($ch);
+$phone_response = json_decode($phone_response);
+</pre>
+<hr>
+<p>Get method | Auth-Token</p>
+<pre>
+$url = "https://api.experianmarketingservices.com/capture/v1/verify-address/text/?query=".$address1."&country=USA";
+$url = str_replace(' ','%20',$url);
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+$headers = array();
+array_push($headers, "Auth-Token: e2df1f7d-0613-4a79-95be-5088aef045f4");
+array_push($headers, "Cache-Control: no-cache");
+array_push($headers, "Pragma: no-cache");
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+$response = curl_exec($ch);
+$code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+curl_close($ch);
+$address_response = json_decode($response);
+</pre>
+<hr>
+<h1>SOAP</h1>
+<PRE>
+$xml = '<?xml version="1.0" encoding="UTF-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:glob="http://sap.com/xi/SAPGlobal20/Global" xmlns:a2v="http://sap.com/xi/AP/CustomerExtension/BYD/A2VTA" xmlns:glob1="http://sap.com/xi/AP/Globalization"><soapenv:Header/><soapenv:Body><glob:CustomerBundleMaintainRequest_sync_V1><Customer actionCode="01" addressInformationListCompleteTransmissionIndicator="true"><CategoryCode>2</CategoryCode><Organisation><FirstLineName>'.$h_name.'</FirstLineName></Organisation><Role><RoleCode>CRM000</RoleCode></Role><AddressInformation actionCode="01"><Address actionCode="01" telephoneListCompleteTransmissionIndicator="true"><Email><URI>'.$h_email.'</URI></Email><PostalAddress><CountryCode>USA</CountryCode><CityName>'.$h_city.'</CityName><StreetPostalCode>'.$h_zip.'</StreetPostalCode><StreetName>'.$h_address.'</StreetName></PostalAddress><DefaultConventionalPhone>'.$h_phone.'</DefaultConventionalPhone></Address></AddressInformation></Customer></glob:CustomerBundleMaintainRequest_sync_V1></soapenv:Body></soapenv:Envelope>';
+		$url = "https://my340687.crm.ondemand.com/sap/bc/srt/scs/sap/managecustomerin1?sap-vhost=my340687.crm.ondemand.com";
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+		
+		$headers = array();
+		array_push($headers, "Content-Type: text/xml; charset=utf-8");
+		array_push($headers, "Accept: text/xml");
+		array_push($headers, "Cache-Control: no-cache");
+		array_push($headers, "Pragma: no-cache");
+		array_push($headers, "SOAPAction: http://sap.com/xi/A1S/Global/ManageCustomerIn/CheckMaintainBundle_V1Request");
+		if($xml != null) {
+			curl_setopt($ch, CURLOPT_POSTFIELDS, "$xml");
+			curl_setopt($ch, CURLOPT_VERBOSE, TRUE); 
+			array_push($headers, "Content-Length: " . strlen($xml));
+		}
+		curl_setopt($ch, CURLOPT_USERPWD, "__CUSTOMER_M:Welcome01"); /* If required */
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		
+		$response = curl_exec($ch);
+		$code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		curl_close($ch);
+
+		$response = '<?xml version="1.0" encoding="utf-8"?>'.$response;
+		$doc = new DOMDocument();
+        $doc->loadXML($response);
+        $changestateid = $doc->getElementsByTagName('ChangeStateID')->item(0);
+        $internalid = $doc->getElementsByTagName('InternalID')->item(0);
+        $uuid = $doc->getElementsByTagName('UUID')->item(0);
+</PRE>
+<P>To check SOAP:</P>
+https://www.screencast.com/t/65l5enYcT
+* Install SoapUI
+* Import .wsdl file
+* Click any SOAP request(eg. Request1) shown on the left side.
+* Auth is found below, click and set "Authorization" as "Basic" and add username, password nly.
+* Click run icon on the top.
+* "SOAP ACTION" is in "Property" section.
+<hr>		

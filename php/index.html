@@ -210,3 +210,31 @@ REST is a set of rules/standards/guidelines for how to build a web API.
 PHP FUNCTIONS
 *glob()
 *list()
+<hr>
+Cookies - Inculded in every http request. Stored in server.
+local storage - stored in client machine. Size is bigg compared to cookies.
+<hr>
+<h2>Consuming API</h2>
+We can use both file_get_contents and CURL for consuming APIs. 
+
+You might consider using cURL if:
+
+You need a very finely tuned request.
+You don’t have allow_url_fopen allowed on your system.
+You need multiple parallel handlers
+You want to handle timeout settings (I guess these all go with the finely tuned request theme)
+
+<hr>
+<h2>JOOMLA</h2>
+COMPONENTS - main functional units displayed in the template, linke CMS, form etc.
+Module - like widget, latest news
+Extension - Components, languages, modules, plugins and templates collectively known as Extensions.
+
+https://stackoverflow.com/questions/1478220/difference-between-components-modules-extensions-and-plugins-in-joomla
+
+1. Navigate to menu and check the "link".
+link: index.php?option=com_users&view=registration
+com_users - represents it is a component and its is in component/com_users/
+Basically a task in joomla 2.5 represents a function in a controller of your component. When you have an url like index.php?option=com_foo&task=comment.edit the function "Edit" in the controller Comment of the component com_foo is called.
+
+For example here is a controller DPAttachmentsControllerAttachment with a download function The url looks like index.php?option=com_dpattachments&task=attachment.download.
