@@ -1,0 +1,78 @@
+<h2>new static vs new self</h2>
+<pre>
+*class Foo
+{
+   public static function baz() {
+      return new self();
+   }
+}
+
+$x = Foo::baz();  // $x is now a `Foo`
+
+class Bar extends Foo
+{
+}
+
+$z = Bar::baz();  // $z is now a `Foo`
+
+
+*class Foo
+{
+   public static function baz() {
+      return new static();
+   }
+}
+
+class Bar extends Foo
+{
+}
+
+$wow = Bar::baz();  // $wow is now a `Bar`, even though `baz()` is in base `Foo`
+</pre>
+<hr>
+<h2>Only one object is created</h2>
+<pre>
+//singelton - only one object is created
+class baskett{
+	private static $instance;
+	private function __construct(){
+		echo 'bbbb';
+	}
+	public static function getInstance(){
+		//when ever we call to this function if instance is not defined it will create and store in "instance", for every subsequent call it will always return the instance is stored
+		if(!self::$instance){
+		self::$instance = new static();
+		}else{
+			echo 'Using existing object';
+		}
+		return self::$instance;
+	}
+	public function set($key,$value){
+		$this->$key = $value;
+	}
+	public function get($key){
+		return $this->$key;
+	}
+	public function test(){
+		echo "test";
+	}
+}
+
+//$a = new baskett();
+$a = baskett::getInstance();
+//$a->set('a', 'aa');
+//$a->set('b', 'bb');
+//var_dump($a);
+
+//echo $a->test();
+
+//echo '<br>';
+
+//$ab = new baskett();
+$ab	 = baskett::getInstance();
+//$ab->set('ab', 'aabb');
+//var_dump($ab);
+
+//echo $ab->test();
+
+</pre>

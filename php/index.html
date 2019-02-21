@@ -238,3 +238,41 @@ com_users - represents it is a component and its is in component/com_users/
 Basically a task in joomla 2.5 represents a function in a controller of your component. When you have an url like index.php?option=com_foo&task=comment.edit the function "Edit" in the controller Comment of the component com_foo is called.
 
 For example here is a controller DPAttachmentsControllerAttachment with a download function The url looks like index.php?option=com_dpattachments&task=attachment.download.
+
+<hr>
+<h2>Error Reporting</h2>
+<p>Use php_flag in .htaccess:</p>
+use php_value for setting ini-settings that need a value:<br>
+php_value memory_limit 64M<br>
+use php_flag for settings that are binary switches:<br>
+php_flag log_errors on<br>
+<pre>
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+</pre>
+Unfortunately, these two directives won’t be able to display parse errors such as missing semicolons or missing curly braces. In this case, the PHP ini configuration must be modified.
+<pre>error_reporting(E_ALL & ~E_NOTICE);</pre>
+The “~” character means “not” or “no” so the parameter ~E_NOTICE means not to show notices.
+
+<hr>
+What are the different types of errors in PHP?
+There are four types of errors in PHP.
+Parse Error (Syntax Error): The parse error occurs if there is a syntax mistake in the script;
+Fatal Error: Fatal errors are caused when PHP understands what you’ve written, however what you’re asking it to do can’t be done.
+Warning Error: Warning errors will not stop execution of the script. The main reason for warning error is to include a missing file or using the incorrect number of parameters in a function.
+Notice Error: Notice error is the same as a warning error i.e. in the notice error, execution of the script does not stop. Notice that the error occurs when you try to access the undefined variable, then produce a notice error.
+
+<hr>
+<h2>Php Functions</h2>
+The extract() function imports variables into the local symbol table from an array.
+<hr>
+<h2>Difference between composer prefer-dist and prefer-source?</h2>
+Dist: The dist is a packaged version of the package data. Usually a released version, usually a stable release.
+
+Source: The source is used for development. This will usually originate from a source code repository, such as git. You can fetch this when you want to modify the downloaded package.
+<hr>
+<h2>Socail media share</h2>
+fb: https://www.facebook.com/sharer/sharer.php?u=example.org
+twitter: http://www.twitter.com/share?url=
+linkedin: https://www.linkedin.com/shareArticle?mini=true&url=

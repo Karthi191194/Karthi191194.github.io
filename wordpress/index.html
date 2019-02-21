@@ -148,3 +148,65 @@ $queried_object = get_queried_object();
  var_dump( $queried_object );
 </pre>
 </hr>
+<h2>Ajax Cart Count Update on Cart Page</h2>
+<pre>
+add_filter( 'woocommerce_add_to_cart_fragments', 'woocommerce_header_add_to_cart_fragment' );
+
+function woocommerce_header_add_to_cart_fragment( $fragments ) {
+	global $woocommerce;
+
+	ob_start();
+	?>
+	<a href="<?php echo get_permalink( wc_get_page_id( 'cart' ) ); ?>">CART (<span><?php echo $woocommerce->cart->cart_contents_count; ?></span>)</a>
+	<?php
+	$fragments['.top-cart a'] = ob_get_clean();
+	return $fragments;
+}?>
+</pre>
+</hr>
+<h2>WordPress User Roles and Capabilities</h2>
+A Role identifies a group of users who are allowed to execute the same tasks onto the website.
+A Capability is the ability (or permission) to perform each single task assigned to a role.
+
+function kinsta_add_caps(){
+	
+	$student = get_role( 'student' );
+	$student->add_cap( 'read_student_project' );
+	$student->add_cap( 'edit_student_project' );
+	$student->add_cap( 'edit_student_projects' );
+	$student->add_cap( 'delete_student_project' );
+	$student->add_cap( 'delete_student_projects' );
+
+}
+add_action( 'admin_init', 'kinsta_add_caps');
+</hr>
+<h2>Install wordpress in subdirectory</h2>
+Fix Permalinks:
+If you have a separate WordPress install in the root directory, then the .htaccess files of your subdirectory will cause conflict. This will result in 404 errors on your website.
+
+To solve this, you need to edit the .htaccess file in your subdirectory WordPress install. Replace the code inside your .htaccess file with the following code:
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /your-subdirectory/
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /your-subdirectory/index.php [L]
+</IfModule>
+ 
+# END WordPress
+Don’t forget to replace /your-subdirectory/ with your own subdirectory name.
+<hr>
+<h2>Logging</h2>
+	public function generate_log( $msg )
+	{
+		$log_date = date('Y-m-d H:i:s');
+		$log_msg = '[' . $log_date . '] ' . $msg . PHP_EOL;
+		file_put_contents(plugin_dir_path(__FILE__).'/log/woo_offline_payment.log', $log_msg, FILE_APPEND);
+	}
+<hr>
+<h2>How to Use Shortcodes in your WordPress Sidebar Widgets</h2>
+By default, shortcodes are not allowed to be executed in a custom HTML widget. To change this, you will need to add the following code to your theme’s functions.php file 
+add_filter( 'widget_text', 'do_shortcode' );	

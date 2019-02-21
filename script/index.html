@@ -1,0 +1,135 @@
+<h2>javascript test() vs match</h2>
+.test() - returns a Boolean whether there is a match or not. It never returns what actually matches. 
+.match() - is a method on a string and returns one set of results.
+<hr>
+<h2>Hide Duplicate li having same class</h2>
+<pre>
+var all_classes = [];
+$( "#main .products li" ).each(function( index ) { //loop through each li
+  var all_class = $( this ).attr('class').split(' ') ; //get all class from li and split into individual class
+  $(all_class).each(function(index, value){ //loop through individual class and check if any class starts with "post-" and push to "all_classes" array
+      if (value.match("^post-")) {
+         all_classes.push(value);
+       }     
+ });
+});
+
+var duplicate_class = find_duplicate_array_value(all_classes);
+
+hide_duplicate_li(duplicate_class)
+
+function find_duplicate_array_value(arr){
+var sorted_arr = arr.slice().sort(); //use sort() to  sort and check if next value on the array as same value
+var results = [];
+for (var i = 0; i < sorted_arr.length - 1; i++) {
+    if (sorted_arr[i + 1] == sorted_arr[i]) {
+        results.push(sorted_arr[i]);
+    }
+}
+return results
+}
+
+function hide_duplicate_li(duplicate_class){ //hide all the li with duplicate class and show only first li.
+	$("#main .products li."+duplicate_class).hide();
+	$("#main .products li."+duplicate_class+":eq( 0 )" ).show();
+}
+</pre>
+</hr>
+<h2>window.onload vs $(document).ready()</h2>
+The ready event occurs after the HTML document has been loaded, while the onload event occurs later, when all content (e.g. images) also has been loaded.
+</hr>
+<h2>Sample script code</h2>
+jQuery(window).scroll(function(){
+	if(isAnimationEnabled())
+		prepareAnimation(false);
+})
+
+jQuery(window).load(function(){
+	if(isAnimationEnabled())
+		prepareAnimation(true);
+});
+
+function initAnimation(sectionToAnimate, elt = "") {
+
+	if( sectionToAnimate == "body-options" ) {
+		jQuery('.fcc-tile-link-image').addClass('spin-and-move-left');
+		var listToAnimate = [
+			'.fcc-tile-container',
+			'.et_pb_code_inner',
+			'.fcc-tile-wrapper',
+			'.fcc-tile-caption'
+		];
+
+		for(var i=0; i<listToAnimate.length; i++) {
+			jQuery( listToAnimate[i] ).addClass('animate');
+		}
+	}else if( sectionToAnimate == "footer-options" ){
+		if( elt == "all") {
+			jQuery('.fcc-option-box').addClass('animate');
+		}else {
+			for(var i=0; i<elt.length; i++) {
+				var eltToAnimate = ".fcc-option-box"+elt[i];
+				jQuery(eltToAnimate).addClass('animate');
+			}
+		}
+	}
+}
+
+function prepareAnimation(isFirstType = false) {
+	var eltBoundaries = jQuery('.fcc-tiles').get(0).getBoundingClientRect();
+	var eltGetAQuote = jQuery('.get-a-quote').get(0).getBoundingClientRect();
+	var eltBrokerCenter = jQuery('.broker-center').get(0).getBoundingClientRect();
+	var eltRecentAwards = jQuery('.recent-awards').get(0).getBoundingClientRect();
+	var eltDriverSupport = jQuery('.driver-support').get(0).getBoundingClientRect();
+
+	var windowWidth = jQuery(window).width();
+	if( windowWidth > 980 ) {	
+		if( eltBoundaries.top < 250 ) {
+			initAnimation("body-options");
+		}
+	}
+	
+	if( !isFirstType ) {
+		if( windowWidth < 980 ) {
+			if( eltGetAQuote.top < 200 )
+				initAnimation("footer-options", ['.get-a-quote']);
+			if( eltBrokerCenter.top < 200 )
+				initAnimation("footer-options", ['.broker-center']);
+			if( eltRecentAwards.top < 200 )
+				initAnimation("footer-options", ['.recent-awards']);
+			if( eltDriverSupport.top < 200 )
+				initAnimation("footer-options", ['.driver-support']);
+		}else if ( windowWidth > 980 ) {
+			var windowClientHeight = document.body.clientHeight;
+			console.log( getViewPortHeight() / 2 );
+			console.log( getViewPortHeight());
+			if( Math.round(getViewPortHeight() / 2) > Math.round(eltGetAQuote.top) ) {
+				initAnimation("footer-options", "all");
+			}
+		}
+	}
+}
+
+function getViewPortHeight(){
+	// Ref: https://bit.ly/2ttCQIX
+	// Returns 
+	var viewPortHeight;
+
+	if(typeof window.innerWidth != undefined ) {
+		// IE 7 and above, Opera, Moz, Chrome
+		viewPortHeight = window.innerHeight;
+	}else if(typeof document.documentElement != 'undefined' && typeof document.documentElement.clientWidth != 'undefined' && document.documentElement.clientWidth != 0) {
+		// IE6 compliant mode
+		viewPortHeight = document.documentElement.clientHeight;
+	}else {
+		// For older IE
+		viewPortHeight = document.getElementsByTagName('body')[0].clientHeight
+	}
+
+	return viewPortHeight;
+}
+
+function isAnimationEnabled() {
+	return window.location.pathname.indexOf('home-feb') == -1 ? false : true;
+}
+</hr>
