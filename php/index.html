@@ -101,6 +101,7 @@ git push orgin master
 DB config - /applications/config/database.php
 Base URL config - /applications/config/config.php
 Route config - /applications/config/routes.php
+Autoload files - /applications/config/autoload.php
 
 Controller:
 class Page extends CI_Controller 
@@ -234,6 +235,9 @@ https://stackoverflow.com/questions/1478220/difference-between-components-module
 
 1. Navigate to menu and check the "link".
 link: index.php?option=com_users&view=registration
+
+Disable "Search Engine Friendly URLs" in the Global Configuration
+
 com_users - represents it is a component and its is in component/com_users/
 Basically a task in joomla 2.5 represents a function in a controller of your component. When you have an url like index.php?option=com_foo&task=comment.edit the function "Edit" in the controller Comment of the component com_foo is called.
 
@@ -276,3 +280,15 @@ Source: The source is used for development. This will usually originate from a s
 fb: https://www.facebook.com/sharer/sharer.php?u=example.org
 twitter: http://www.twitter.com/share?url=
 linkedin: https://www.linkedin.com/shareArticle?mini=true&url=
+<hr>
+<h2>convert an object into array</h2>
+$name_of_array =  (array) $name_of_object;
+get_object_vars($obj)? Seems useful if you only want to access the public properties of an object.
+<hr>
+<h2>Offset in array</h2>
+From were to start the array
+<hr>
+Php is executed before the page is pushed to the client and javascript is excuted as the page is loading in the browser (although it is often benificial to tell the browser to not execute it until the entire page is loaded) and after event on the loaded page. 
+
+The only way to get the variable back to the php interpreter is to call the page again passing variables, or use an ajax call to the server.
+

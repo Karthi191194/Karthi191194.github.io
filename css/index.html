@@ -1,0 +1,103 @@
+<h2>Centering div with relative, absolute</h2>
+<style>
+.relative{
+    position: relative;
+    background: red;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;	
+}
+.absolute{
+	position: absolute;
+    background: yellow;
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    right: 0;
+    left: 0;
+}
+.center{
+	text-align: center;
+}
+</style>
+</head>
+<body>
+<div class="relative">
+	<div class="absolute">
+	    <p class="center">aaa</p>
+	</div>
+</div>
+margin: 0 auto - Centers the full container.
+text-align: center - Centers the text inside the container.
+
+<hr>
+*lineheight - two distances between dotted line which inspectinh an element.
+*if width is 100% we cant set margin: 0 auto;
+*.contact-form h1{
+background: url(../images/line-small.jpg) no-repeat bottom center;
+} - adding line under h1 
+*layout
+<section>
+<div class="container">
+<div class="row">
+<div class="row">
+</div>
+</section>
+<hr>
+<h2>Position</h2>
+static - default position
+relative - useless untill we use top, right, left. We can move move were ever using the top, right, left.
+absolute - an absolute positioned element is relative to its parent.
+fixed - relative to the <html> document, not affected by scrolling.
+
+absolute: The element is positioned relative to its first positioned (not static) ancestor element
+
+relative: The element is positioned relative to its normal position(relative to were it is)
+<hr>
+<h2>Bootstrap 4 Grid</h2>
+EG:
+<div class="container">
+	<div class="row">
+		<div class="col-md-6">
+		</div>
+	</div>
+</div>
+
+-->The Rules of the Grid:
+*Columns must be the immediate child of a Row.
+*Rows are only used to contain Columns, nothing else.
+*Rows should be placed inside a Container.
+
+-->The Container can be used to hold any elements and content. It’s not only used for the Grid Rows & Columns. 
+
+-->Class row adds a:
+*clearfix
+*negative margin-left
+*negative margin-right
+
+With negative margin at the beginning:
+
+<div class="row">            
+  <div class="col-md-4">.col-md-4</div>
+  <div class="col-md-4">.col-md-4</div>
+  <div class="col-md-4">.col-md-4</div>
+</div>
+Without negative margin at the beginning:
+
+<div>     
+  <div class="col-md-4">.col-md-4</div>
+  <div class="col-md-4">.col-md-4</div>
+  <div class="col-md-4">.col-md-4</div>
+</div>
+
+Rows have a negative left/right margin of -15px. The Container padding of 15px is used to counteract the negative margins of the Row. This is to keep content evenly aligned on the edges of the layout. If you don’t put a Row in a Container, the Row will overflow it’s container, causing an undesirable horizontal scroll.
+
+--> Columns, and only columns, are placed inside the Row.Content is placed inside the Columns.
+XS - < 566px 
+SM - 576 TO 767px
+MD - 768 TO 991px
+LG - 992 TO 1999
+XL - > 1200
+
+--><div class=”col-md-6"></div> is effectively the same as <div class=”col-md-6 col-lg-6"></div>. Therefore, you only need to use the class for the smallest width you want to support.
+Rows are display:flex, and therefore Columns are equal height in the same row. Use auto-margins or Flexbox align-items and justify-content forhorizontal or vertical alignment (centering, bottom, right, etc..).

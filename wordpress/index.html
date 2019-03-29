@@ -210,3 +210,145 @@ Don’t forget to replace /your-subdirectory/ with your own subdirectory name.
 <h2>How to Use Shortcodes in your WordPress Sidebar Widgets</h2>
 By default, shortcodes are not allowed to be executed in a custom HTML widget. To change this, you will need to add the following code to your theme’s functions.php file 
 add_filter( 'widget_text', 'do_shortcode' );	
+<hr>
+add_action( 'init', 'process_post' );
+Fires after WordPress has finished loading but before any headers are sent.
+
+add_shortcode('gpbcridereg', 'gpbcridereg_shortcode');
+add_filter('gform_pre_render_4', 'ridereg_pre_render_function');
+
+
+add_shortcode('gpbc_clubrides', 'gpbcclubrides_shortcode');
+
+function gpbcclubrides_shortcode($attr) {
+    ob_start(); //shortcodes should not output anything, but rather, return
+    $args = array(
+        'post_type' => array('ride', 'club_ride', 'archive_ride'),
+        'orderby' => 'wpcf-date-and-time',
+        'meta_key' => 'wpcf-date-and-time',
+        'posts_per_page' => -1,
+        'order' => 'ASC',
+        'meta_query' => array(
+            array(
+                'key' => 'wpcf-ride-type',
+                'value' => 'Club',
+                'compare' => 'LIKE',
+            ),
+        ),
+    );
+
+    $query = new WP_Query($args);
+    if ($query->have_posts()) {
+        ?>
+        <table class="ridelist">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Ride Description</th>
+                    <th>Leader</th>
+                    <th>Distance</th>
+                </tr>
+            </thead>
+            <tbody>
+        <?php
+        $rArr = array();
+        while ($query->have_posts()) :
+            $query->the_post();
+            $mymeta = get_post_meta(get_the_ID());
+            $types = unserialize($mymeta['wpcf-ride-type'][0]);
+            $weekly = false;
+            foreach ($types as $t) {
+                if ($t[0] == 'Weekly') {
+                    $weekly = true;
+                }
+            }
+            if ($weekly) {
+                $dayofweek = date('l', $mymeta['wpcf-date-and-time'][0]);
+                $today = date('l') + 5  60  60;
+                if ($today == $dayofweek) {
+                    $nextride = time();
+                } else {
+                    $nextride = strtotime('next ' . $dayofweek);
+                }
+            } else {
+                $nextride = $mymeta['wpcf-date-and-time'][0];
+            }
+            ob_start();
+            ?>
+                    <tr>
+                        <th><?php
+                    if ($weekly) {
+                        $dayofweek = date('l', $mymeta['wpcf-date-and-time'][0]);
+                        echo date('F j (l)', strtotime('next ' . $dayofweek));
+                    } else {
+                        echo date('F j (l)', $mymeta['wpcf-date-and-time'][0]);
+                    }
+                    ?>
+
+                        </th>
+                        <td><?= date('g:i a', $mymeta['wpcf-date-and-time'][0]);
+                    ?></td>
+                        <td><a name='<?php the_slug();
+                    ?>'><strong><?= get_the_title() ?></strong></a>
+                            <br />
+                            <?php
+                            if ($weekly) {
+                                echo 'Weekly Ride: See below for full details...';
+                            } else {
+                                echo get_the_content();
+                            }
+                            ?>
+
+                        </td>
+                        <td><?php
+                            if ($mymeta['wpcf-leader'][0] !== '') {
+                                $t = explode(',', $mymeta['wpcf-leader'][0]);
+                                echo implode('<br />', $t);
+                            }
+                            ?></td>
+                        <td><?= $mymeta['wpcf-distance'][0];
+                ?></td>
+                    </tr>
+                            <?php
+                            $rides[$nextride . 'post' . get_the_ID()] = ob_get_clean();
+
+                        endwhile;
+                        ksort($rides);
+
+                        if (isset($_GET['istm'])) {
+                            echo '<pre>';
+                            $k = array_keys($rides);
+                            print_r($k);
+                            echo '</pre>';
+                        }
+
+                        foreach ($rides as $r) {
+                            echo $r;
+                        }
+                        wp_reset_query();
+                        ?>
+            </tbody>
+        </table>
+                <?php
+            }
+
+            $out = ob_get_clean();
+
+            return ($out);
+        } ?>
+<hr>
+//helper function to write log files to disk
+function custom_log($x, $new = false, $show = false) {
+    if (!file_exists(ABSPATH . '/orderlog')) mkdir(ABSPATH . '/orderlog');
+    $lf = ABSPATH . '/orderlog/orderinfo' . date('Y_m_d') . '.log';
+    if ($new) {
+        file_put_contents($lf, '-----------' . date('m/d/Y H:i:s') . '-------------------------------------------', FILE_APPEND);
+        file_put_contents($lf, $x . "\n", FILE_APPEND);
+    } else {
+        file_put_contents($lf, $x . "\n", FILE_APPEND);
+    }
+    if ($show) {
+        var_dump($x);
+    }
+}

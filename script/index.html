@@ -133,3 +133,39 @@ function isAnimationEnabled() {
 	return window.location.pathname.indexOf('home-feb') == -1 ? false : true;
 }
 </hr>
+var person = {
+  firstName: "John",
+  lastName : "Doe",
+  id     : 5566,
+  fullName : function() {
+    return this.firstName + " " + this.lastName;
+  }
+};
+
+// Display data from the object:
+document.getElementById("demo").innerHTML = person.fullName();
+</hr>
+IE issue
+
+function test(elt){
+   if(elt === undefined) {
+      elt = '';
+   }
+console.log("test function");
+}
+
+test();
+
+<hr>
+<h2>defer and async</h2>
+The 2 attributes are defer and async. Using these attributes can help improve the page load time by downloading the script in parallel when the page is being parsed and then executing it either immediately or at the end of page parsing
+
+If both defer and async attributes are not present then the script is fetched and evaluated immediately, and hence blocking the parsing of the page while the script is being downloaded and evaluated.
+
+If the defer attribute is present, then the script is fetched in parallel to the parsing of the page but will be evaluated only after the page is parsed. When async attribute is present, then the script is fetched in parallel to the parsing of the page and it will be evaluated as soon as the script is available (potentially before the page is parsed completely).
+
+The defer and async attributes can be specified together. When both are present the async tag take preference over defer. For the older browsers that don’t support async, but support defer, it will fallback to defer behavior instead of the default blocking behavior.
+
+With defer attribute the order of execution of the script remain the same, but with async the order of execution of the script is not guaranteed. Hence, using defer is best for the cases where a script depends on another. e.g. if you have jQuery and a script that depends on it, then you should use defer on those scripts (including jQuery) to make sure that jQuery is loaded before the dependent scripts.
+<hr>
+indexOf

@@ -1,0 +1,49 @@
+Git is the command line version control system.
+
+GitHub is an internet hosting service for git repositories.
+
+How the Git Credential Managers works:
+1.Checks  if a personal access token exists in the Windows Credential Manager cache
+2.If cached credentials aren’t found, a dialog is shown to get the user’s  github credentials.
+3.If authentication succeeds, the GCM creates a personal access token with read / write code permissions for the team project.
+4.The personal access token is stored in the Windows Credential Manager and used to perform the requests Git command.
+
+Access token can also be deleted on the github account.
+
+
+---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  
+
+Pull Request - Pull request means requesting the admin of repo to pull the changes of this branch to master branch.(we can have converation for example "I have created changes in my repo.. Please pull to the main repo", so admin  can check say his comments)
+
+Issues
+
+Fork - A fork is a copy of a repository. Forking a repository allows you to freely experiment with changes without affecting the original project. Most commonly, forks are used to either propose changes to someone else's project or to use someone else's project as a starting point for your own idea.
+
+Commands:
+*git branch - Checks the branch 
+
+---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  
+
+Repo Owner: Karthick1911
+Fork: Jerome
+
+After Fork:
+*To get the latest contents from the orginal repo:  git pull "orginal repo url" master 
+(git pull https://github.com/Karthick1911/test-git.git repo)
+*If any contents are modified
+-> git status or git status -s
+-> git diff = check the difference
+-> git add = add new files or add modification in the previous file | git add . = add all modifications and new files
+-> git branch
+-> git checkout -b branchname = -b means create a new branch (git checkout -b testbranch)
+-> git branch
+-> git commit -m "dummy commit .Closes #3" (Closes #3 is the issue no, the issue with #3 will be cloased when the pull request is merged) 
+
+---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  
+https://github.com/WebMDT-Marco/ENTRY-CENTRA-DEMO
+git clone https://shankarzaigo:Shankar9941606974@github.com/WebMDT-Marco/ENTRY-SYSTEM.git
+Here,
+shankarzaigo - user name
+Shankar9941606974 - password 
+---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  
+

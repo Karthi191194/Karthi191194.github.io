@@ -57,3 +57,77 @@ https://www.youtube.com/watch?v=hrbGIaMpOC0
 
 Linux Basics -- Scheduling Tasks with Cron
 https://www.youtube.com/watch?v=8j0SWYNglcw
+
+<hr>
+<h3>DNS</h3>
+https://in.godaddy.com/help/manage-dns-zone-files-680
+
+https://www.inmotionhosting.com/support/website/how-to/modifying-your-hosts-file
+https://www.inmotionhosting.com/support/domain-names/dns-nameserver-changes/what-is-a-name-server
+
+Nameservers:
+Nameservers are part of DNS, which stands for “Domain Name System.” The DNS is a database that works like a phone book for computers: it converts a domain name, such as “www.example.com,” to a machine-readable IP address, such as “22.231.113.64.” The DNS is maintained by several organizations, including IANA (Internet Assigned Numbers Authority) and ICANN (Internet Corporation for Assigned Names and Numbers).
+
+*What do DNS requests to name servers look like?
+But just how exactly did your computer know what webpage to display for you, and what server to pull it from?
+
+-Your web-browser knows you typed InMotionHosting.com into the address bar.
+
+-Your computer then uses DNS to retrieve the current nameservers for InMotionHosting.com.
+
+-Our public nameservers; ns1.inmotionhosting.com and ns2.inmotionhosting.com are retrieved.
+
+-Your computer asks our nameservers for the A (address) record for InMotionHosting.com.
+
+-Our public nameservers respond back with the IP address 192.145.237.216
+
+-Your computer sends a request to that IP address along with the page you're requesting.
+
+-Our web server hosting InMotionHosting.com then sends your web-browser the requested page.
+
+*Check nameservers info from command prompt
+-In Windows click on Start, in the Search programs and files field type in cmd, then hit Enter.
+-Type: nslookup
+-Type: set q=NS
+-Type: domain name(inmotionhosting.com)
+
+<hr>
+<h3>SUDO</h3>
+How To Obtain Root Privileges
+There are three basic ways to obtain root privileges,
+*Log In As Root:
+-The simplest and most straight forward method of obtaining root privileges is simply to log into your server as the root user from the onset. ssh root@server_domain_or_IP
+*Use "su" to Become Root:
+-Logging in as root is usually not recommended, because it is easy to begin using the system for non-administrative tasks, which is dangerous.
+-The next way to gain super-user privileges allows you to become the root user at any time, as you need it.
+-We can do this by invoking the su command, which stands for "substitute user". To gain root privileges, simply type: su
+*Use "sudo" to Execute Commands as Root
+-The final, and most complex, way of obtaining "root privileges" that we will discuss is with the sudo command.
+-The sudo command allows you to execute one-off commands with root privileges, without the need to spawn a new shell. It is executed like this: sudo command_to_execute
+-Unlike su, the sudo command will request the password of the user calling the command, not the root password.
+-Because of its security implications, sudo access is not granted to users by default, and must be set up before it functions correctly.
+
+sudo visudo /etc/sudoers
+
+Every sudoers file will have the following line:
+root ALL=(ALL) ALL
+This permits the root user on ALL hosts using ALL users to execute ALL commands. ALL is a special value in the sudoers file meaning “no restrictions.”
+
+For more control, you could add a line like the following, which would only permit the “alexander” user to run apt-get update.
+alexander ALL=(ALL) /usr/bin/apt-get update
+
+Put a “%” in front of the user, and it will define a group. 
+
+<hr>
+Backup a Single MySQL Database:
+
+mysqldump -u root -p database_name > database_name.sql
+
+If you are logged in as the same user that you are using to perform the export and that user does not require a password, you can omit the -u and -p options:
+mysqldump database_name > database_name.sql
+
+The backup will be stored in the path or folder from where you run the mysql command
+
+Import a Single MySQL Database:
+
+mysql -u ortholin_dbuser -p ortholin_ortholin_joomla_new < backup_ortholin_joomla3_140319.sql;

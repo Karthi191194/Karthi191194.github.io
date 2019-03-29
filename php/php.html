@@ -76,3 +76,50 @@ $ab	 = baskett::getInstance();
 //echo $ab->test();
 
 </pre>
+<hr>
+<h2>Exception Handling</h2>
+<pre>
+//create function with an exception
+function checkNum($number) {
+  if($number>1) {
+    throw new Exception("Value must be 1 or below");
+  }
+  return true;
+}
+
+//trigger exception
+checkNum(2);
+</pre>
+When an exception is thrown, the code following it will not be executed, and PHP will try to find the matching "catch" block.
+
+If an exception is not caught, a fatal error will be issued with an "Uncaught Exception" message.
+
+Fatal error: Uncaught Exception: Value must be 1 or below in D:\xamp\htdocs\xampp_test.php:5 Stack trace: #0 D:\xamp\htdocs\xampp_test.php(11): checkNum(2) #1 {main} thrown in D:\xamp\htdocs\xampp_test.php on line 5
+
+Stack trace: #0 - This shows were the function is called which is throwning the expection.
+Stack trace: #1 - This shows were the throw exception line is 
+<hr>
+<h2>PHP double quotes vs single quotes</h2>
+<pre>
+echo 'This is \'test\' string';   
+//Output: This is 'test' string
+
+$count = 1;
+echo "The count is $count";
+//Output: The count is 1
+
+$count = 1;
+echo 'The count is $count';
+//Output: The count is $count
+
+I recommend using single quotes (‘ ‘) for string unless we need the double quotes (” “). This is because double quotes forces PHP to evaluate(checks) the string (even though it might not be needed), whereas string between single quotes is not evaluated. Also, parsing variables between strings takes more memory than concatenation.
+
+So instead of this:
+$count = 1;
+echo "The count is $count";
+
+use this:
+$count = 1;
+echo 'The count is ' . $count;
+
+</pre>

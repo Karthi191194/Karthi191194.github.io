@@ -1,0 +1,63 @@
+<h2>Codeignitor</h2>
+<pre>
+DB config - /applications/config/database.php
+Base URL config - /applications/config/config.php
+Route config - /applications/config/routes.php
+Autoload files - /applications/config/autoload.php = to inculde any autoload files or config files
+Constants - /applications/config/constant.php
+
+Environment Setup - index.php 
+
+BASE_SITE_URL can be in config.php or constant.php
+
+Controller:
+class Page extends CI_Controller 
+
+		$this->load->model('users');
+		$this->load->view($data['theme'].'/page', $data);
+</pre>
+<hr>
+define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
+Splitting out the development, testing & production by means of .htaccess before it even gets to the code. To configure this:
+<IfModule mod_env.c>
+    SetEnv CI_ENV development
+</IfModule>
+<hr>
+<h2>Codeigniter URL not working without index.php</h2>
+When I put an URL as below it's not working and gives page not found error http://www.reviewongadgets.com/latest-mobile
+But it works with http://www.reviewongadgets.com/index.php/latest-mobile
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+	RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php?/$1 [L]
+</IfModule>
+
+E.G. on my Windows XAMPP, I do not need the "?", but in a Linux hosting environment it is usually required. 
+RewriteRule ^(.*)$ index.php?/$1 [L]
+
+<IfModule mod_rewrite.c>
+    Options +FollowSymLinks
+	RewriteEngine On
+	RewriteBase /ENTRY-LouisMartiniRiedel/
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php/$1 [L]
+    RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+	RewriteRule ^(.*)$ http://%1/ENTRY-LouisMartiniRiedel/$1 [R=301,L]
+</IfModule>
+
+RewriteEngine on
+RewriteCond $1 !^(index\.php|resources|robots\.txt)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L,QSA] 
+
+<hr>
+<h2>Setting Up Migrations in CodeIgniter</h2>
+application/config/migration.php
+*enable migration
+*if needed set the migration path
+*migrations  > 001_add_users.php - table create array
+*migration controller - for running the migrations(this will create tables as mentioned inside migrations folder)
