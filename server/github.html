@@ -19,6 +19,9 @@ Issues
 
 Fork - A fork is a copy of a repository. Forking a repository allows you to freely experiment with changes without affecting the original project. Most commonly, forks are used to either propose changes to someone else's project or to use someone else's project as a starting point for your own idea.
 
+git config will be show on the "git log" and in github as well.
+github eg: Karthick1911 committed 13 days ago, here Karthick1911 is git config.name
+
 Commands:
 *git branch - Checks the branch 
 
@@ -30,14 +33,16 @@ Fork: Jerome
 After Fork:
 *To get the latest contents from the orginal repo:  git pull "orginal repo url" master 
 (git pull https://github.com/Karthick1911/test-git.git repo)
+*git pull https://github.com/Karthick1911/test-git.git master - pulls master branch  from the original repo
+
 *If any contents are modified
 -> git status or git status -s
--> git diff = check the difference
--> git add = add new files or add modification in the previous file | git add . = add all modifications and new files
+-> git diff = check the difference .. used to check diff before add
+-> git add = add new files or add modification in the previous file | git add . = add all modifications and new files | after git add, git will start to track the changes
 -> git branch
 -> git checkout -b branchname = -b means create a new branch (git checkout -b testbranch)
 -> git branch
--> git commit -m "dummy commit .Closes #3" (Closes #3 is the issue no, the issue with #3 will be cloased when the pull request is merged) 
+-> git commit -m "dummy commit .Closes #3" (Closes #3 is the issue no, the issue with #3 will be cloased when the pull request is merged) | takes snapshot of the stagged files
 
 ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  ---  
 https://github.com/WebMDT-Marco/ENTRY-CENTRA-DEMO

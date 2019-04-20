@@ -292,3 +292,20 @@ Php is executed before the page is pushed to the client and javascript is excute
 
 The only way to get the variable back to the php interpreter is to call the page again passing variables, or use an ajax call to the server.
 
+<hr>
+$fp = fopen("data_new_insta.php","w");
+$temp = array();
+$temp['token'] = $this->token;
+$temp['uname'] = $this->uname;
+fwrite($fp,print_r($temp,true));
+fclose($fp);   
+<hr>
+function remove_http($url) {
+			$disallowed = array('http://', 'https://');
+			foreach($disallowed as $d) {
+				if(strpos($url, $d) === 0) {
+					return str_replace($d, '', $url);
+				}
+			}
+		return $url;
+}

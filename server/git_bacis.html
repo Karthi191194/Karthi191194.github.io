@@ -1,0 +1,617 @@
+
+<!DOCTYPE html>
+<html class="sticky-footer">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://uoftcoders.github.io/studyGroup/style.css">
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+   </head>
+<body>   
+<h3 id="git-vs-github">Git vs GitHub</h3>
+<h4 id="git">Git</h4>
+<ul>
+  <li>Git is the command line version control system (VCS) software which works on your local computer.</li>
+  <li>Git was created by Linus Torvalds in 2005 for development of the Linux kernel, with other kernel developers contributing to its initial development.</li>
+  <li>You need Git to use GitHub. You can use Git locally without GitHub.</li>
+</ul>
+
+<h4 id="github">GitHub</h4>
+<ul>
+  <li>GitHub is an internet hosting service for git repositories. Public repos are free; private repos are paid.</li>
+  <li>As a shared space for repos, it allows you to do collaborative work.</li>
+</ul>
+
+<h3 id="two-common-collaborative-work-flows">Two Common Collaborative Work Flows</h3>
+<h4 id="shared-repository-model">Shared Repository Model</h4>
+<ul>
+  <li>For small projects where you are basically in the same physical space (e.g. lab with offices near each other).</li>
+  <li>Be careful! You are cloning the main repository.</li>
+  <li>Everyone has push and pull access to the central repo, so be careful and:
+    <ul>
+      <li>Never commit to the master directly.</li>
+      <li>Always do your work on a different branch from master.</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="basic-shared-repository-workflow">Basic Shared Repository Workflow</h4>
+<ul>
+  <li>update your local repo with <code class="highlighter-rouge">git pull origin master</code>,</li>
+  <li>create a working branch with <code class="highlighter-rouge">git checkout -b MyNewBranch</code></li>
+  <li>make your changes on your branch and stage them with <code class="highlighter-rouge">git add</code>,</li>
+  <li>commit your changes locally with <code class="highlighter-rouge">git commit -m "description of your commit"</code>, and</li>
+  <li>upload the changes (including your new branch) to GitHub with <code class="highlighter-rouge">git push origin MyNewBranch</code></li>
+  <li>Go to the main repo on GitHub where you should now see your new branch</li>
+  <li>click on your branch name</li>
+  <li>click on “Pull Request” button (URC)</li>
+  <li>click on “Send Pull Request”</li>
+</ul>
+
+<h4 id="fork-and-pull-model">Fork and Pull Model</h4>
+<ul>
+  <li>This is the model used by U of T Coders on its own website and repos.</li>
+  <li>The “owner”/”Project Leader” of the upstream repo assigns rights to “Collaborators”</li>
+  <li>Collaborators do not have push access to main (upstream) repo</li>
+  <li>Project Lead accepts Pull Requests (PRs) fro collaborators, reviews them, then merges them into main repo.</li>
+</ul>
+
+<h4 id="fork-and-pull-workflow">Fork and Pull Workflow</h4>
+<ul>
+  <li>to be demonstrated during lesson</li>
+</ul>
+
+<h3 id="some-git-terminologyjargon">Some Git Terminology/Jargon</h3>
+<h4 id="repos-and-branches">Repos and Branches</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Term</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Origin (repo)</td>
+      <td>Your remote repo (on Github); it is the “origin” for your local copy. Either it is a repo you created yourself or it is a fork of someone else’s GitHub repo.</td>
+    </tr>
+    <tr>
+      <td>Upstream (repo)</td>
+      <td>The main repo (on GitHub) from which you forked your GiHub repo.</td>
+    </tr>
+    <tr>
+      <td>Local (repo)</td>
+      <td>The repo on your local computer.</td>
+    </tr>
+    <tr>
+      <td>Master</td>
+      <td>The main branch (version) of your repo.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="basic-commandsactions">Basic Commands/Actions</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Term</th>
+      <th>Explanation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Fork</td>
+      <td>Make a copy of someone else’s GitHub repo in your own GitHub account.</td>
+    </tr>
+    <tr>
+      <td>Clone</td>
+      <td>Make a copy of the your GitHub repo on your local computer.  In CLI: ‘git clone’ copies a remote repo to create a local repo with a remote called <code class="highlighter-rouge">origin</code> automatically set up.</td>
+    </tr>
+    <tr>
+      <td>Pull</td>
+      <td>You incorporate changes into your repo.</td>
+    </tr>
+    <tr>
+      <td>Add</td>
+      <td>Adding snapshots of your changes to the “Staging”  area.</td>
+    </tr>
+    <tr>
+      <td>Commit</td>
+      <td>Takes the files as they are in your staging area and stores a snap shot of your files (changes) permanently in your Git directory.</td>
+    </tr>
+    <tr>
+      <td>Push</td>
+      <td>You “push” your files (changes) to the remote repo.</td>
+    </tr>
+    <tr>
+      <td>Merge</td>
+      <td>Incorporate changes into the branch you are on.</td>
+    </tr>
+    <tr>
+      <td>Pull Request</td>
+      <td>Term used in collaboration. You “issue a pull request” to the owner of the upstream repo asking them to pull your changes into their repo (accept your work).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="configuring-git-global-settings-on-your-local-computer">Configuring git global settings on your local computer</h3>
+<p>You only have to do this once; global settings apply to all your git repos.<br />
+Note: Any Local settings you initiate within individual git repositories will over ride global settings.</p>
+<ul>
+  <li>username</li>
+  <li>email</li>
+  <li>display colours</li>
+  <li>preferred text editor</li>
+</ul>
+
+<p>Command line git syntax is: <code class="highlighter-rouge">git verb</code></p>
+
+<blockquote>
+  <p><code class="highlighter-rouge">$ git config --global user.name "Albert Einstein"</code><br />
+<code class="highlighter-rouge">$ git config --global user.email   "bertie@worlduniversity.edu"</code><br />
+<code class="highlighter-rouge">$ git config --global color.ui "auto"</code></p>
+</blockquote>
+
+<p>Use your own name and email address instead of Einstein’s. This user name and email will be associated with your subsequent Git activity, which means that any changes pushed to a Git host server will include this information.</p>
+
+<p>For this lesson, we will be interacting with GitHub and so the email address used should be the same as the one used when setting up your GitHub account. If you are concerned about privacy, please review GitHub’s instructions for keeping your email address private. If you elect to use a private email address with GitHub, then use that same email address for the <code class="highlighter-rouge">user.email</code> value, e.g. <code class="highlighter-rouge">username@users.noreply.github.com</code> replacing <code class="highlighter-rouge">username</code> with your GitHub one. You can change the email address later on by using the <code class="highlighter-rouge">git config</code> command again.</p>
+
+<p>Set up your favorite text editor (default editor):</p>
+
+<blockquote>
+  <p><code class="highlighter-rouge">$ git config --global core.editor "nano -w"</code><br />
+<code class="highlighter-rouge">$ git config --global core.editor "atom --wait"</code></p>
+</blockquote>
+
+<p>See https://swcarpentry.github.io/git-novice/02-setup/ for settings for other text editors</p>
+
+<hr />
+<h2 id="exercise-1">Exercise 1</h2>
+<h3 id="two-person-collaboration-via-the-cli---shared-repo-workflow-without-branches">Two Person Collaboration via the CLI - Shared Repo Workflow (without branches)</h3>
+<p>This exercise is based on the SWC Git Novice lesson https://swcarpentry.github.io/git-novice/08-collab/</p>
+
+<p>One of you will be the “Owner” and one of you will be the “Collaborator.”</p>
+
+<h4 id="a-owner-gives-collaborator-access-to-their-repo">A. Owner gives collaborator access to their repo.</h4>
+<ol>
+  <li>Go to your GitHub repo</li>
+  <li>Add a file called “tenlines.txt” and put the text from the etherpad into the file. Commit your changes.</li>
+  <li>Click on <strong>Settings</strong> tab.</li>
+  <li>Click <strong>Collaborators</strong></li>
+  <li>Enter collaborataors username</li>
+</ol>
+
+<h4 id="b-collaborator-clones-owners-repo">B. Collaborator clones Owner’s Repo</h4>
+<ol>
+  <li>Go to https://github.com/notifications and accept access to Owner’s repo.</li>
+  <li>On the CLI, clone the owner’s repo but issuing the commmand:<br />
+<code class="highlighter-rouge">$ git clone URL-of-Origin-Repo Directory-Address-of-Local-Repo</code></li>
+</ol>
+
+<h4 id="c-collaborator-works-on-clone-of-owners-repo">C. Collaborator works on clone of Owner’s Repo</h4>
+<p>Go to your cloned repo:<br />
+<code class="highlighter-rouge">$ cd ~/.../yourClone</code></p>
+
+<p>Open editor and revise working file:<br />
+<code class="highlighter-rouge">atom tenlines.txt</code></p>
+
+<p>Commit your changes to your local repo:<br />
+<code class="highlighter-rouge">$ git add tenlines.txt</code><br />
+<code class="highlighter-rouge">$ git commit -m "your commit message"</code></p>
+
+<p>Push your changes to the Owner’s repo on GitHub:<br />
+<code class="highlighter-rouge">$ git push origin master</code></p>
+
+<h4 id="d-owner-review-and-accepts-changes-from-collaborator">D. Owner review and accepts changes from Collaborator</h4>
+<p>Look at Owner’s GitHub repo and see new commit(s) from Collaborator.</p>
+
+<p>Download (pull) Collaborators changes to Owner’s local repo:<br />
+<code class="highlighter-rouge">$ git pull origin master</code></p>
+
+<hr />
+<h2 id="exercise-2">Exercise 2</h2>
+<h3 id="dealing-with-merge-conflicts">Dealing with Merge Conflicts</h3>
+<p>This section is based on the SWC Git Novice lesson https://swcarpentry.github.io/git-novice/09-conflict/</p>
+
+<p>When two or more people work on the same files, conflicts are bound to occur. Version control will help notify us when there are conflicts. It will be up to the humans to sort out which changes to retain.</p>
+
+<p>The file “tenlines.txt” currently looks like this:<br />
+<code class="highlighter-rouge">$ cat tenlinestxt</code></p>
+
+<p>Let’s say <strong>Person A</strong> adds a line to the file and review:<br />
+<code class="highlighter-rouge">$ atom tenlines.txt</code><br />
+<code class="highlighter-rouge">$ cat tenlines.txt</code></p>
+
+<p>and pushes changes to GitHub:<br />
+<code class="highlighter-rouge">$ git add tenlines.txt</code><br />
+<code class="highlighter-rouge">$ git commit -m "added a line in local copy and pushed to remote"</code><br />
+<code class="highlighter-rouge">$ git push origin master</code></p>
+
+<p>Now, <strong>Person B</strong> modifies her local file without first updating it (pulling the repo) from GitHub:<br />
+Add a line to the file and review:<br />
+<code class="highlighter-rouge">$ atom tenlines.txt</code><br />
+<code class="highlighter-rouge">$ cat tenlines.txt</code></p>
+
+<p>Commit the changes locally:<br />
+<code class="highlighter-rouge">$ git add tenlines.txt</code><br />
+<code class="highlighter-rouge">$ git commit -m "added a line in local copy"</code></p>
+
+<p>But when we push, Git will not allow this because there were changes to the same line in the two files:<br />
+<code class="highlighter-rouge">$ git push origin master</code></p>
+
+<p>To resolve the conflict, you need to <strong>pull</strong> the changes from GitHub, <strong>merge</strong> them into your local copy, and then <strong>push</strong> it back to GitHub<br />
+<code class="highlighter-rouge">$ git pull origin master</code></p>
+
+<p>Git tells us there is a conflict and tells you the file it’s in.<br />
+Let’s look at the file:<br />
+<code class="highlighter-rouge">cat tenlines.txt</code></p>
+
+<p>Git has put some new info in our file:</p>
+
+<p><code class="highlighter-rouge">&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code><br />
+<code class="highlighter-rouge">our text</code><br />
+<code class="highlighter-rouge">========</code><br />
+<code class="highlighter-rouge">Other persons's text</code><br />
+<code class="highlighter-rouge">&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code></p>
+
+<p>You need to open your text editor and make the changes which is the accepted version by you and your collaborator:<br />
+<code class="highlighter-rouge">atom tenfiles.txt</code></p>
+
+<p>Then, to finish mergining, you need to <strong>add</strong>, <strong>commit</strong>, and <strong>push</strong> your changes back to GitHub:<br />
+<code class="highlighter-rouge">$ git add tenlines.txt</code></p>
+
+<p>You can verify the status of your repo first, then commit and push:<br />
+<code class="highlighter-rouge">$ git status</code><br />
+<code class="highlighter-rouge">$ git commit -m "Merged changes from GitHub"</code><br />
+<code class="highlighter-rouge">$ git push origin master</code></p>
+
+<p>Git keeps track that a conflict has been resolved and what was merged into what so when Person A who made the first changes pulls from GitHub, she doesn’t have to fix things and merge again.</p>
+
+<p>Person A pull and sees new version of the file:<br />
+<code class="highlighter-rouge">$ git pull origina master</code><br />
+<code class="highlighter-rouge">$ cat tenlines.txt</code></p>
+
+<hr />
+
+<h2 id="exercise-3">Exercise 3</h2>
+<h3 id="solo-practise-via-the-github-gui">Solo Practise via the GitHub GUI</h3>
+<p>This exercise is based on the 10 mins GitHub “Hello World” tutorial
+https://guides.github.com/activities/hello-world/</p>
+
+<h4 id="a-create-a-remote-repo-in-your-github-account">A. Create a Remote Repo in your GitHub Account</h4>
+
+<ol>
+  <li>In URC, click <strong>+</strong>, then select <strong>New repository</strong></li>
+  <li>Name your repository <code class="highlighter-rouge">Kathy's Project</code>.</li>
+  <li>Write a short description.</li>
+  <li>Select <strong>Initialize this repository with a README</strong>.</li>
+</ol>
+
+<h4 id="b-create-a-branch">B. Create a Branch</h4>
+
+<ol>
+  <li>Click drop down at top of file list that says <strong>branch: master</strong>.</li>
+  <li>Type a branch name, <code class="highlighter-rouge">readme-edits</code>, into the new branch text box.</li>
+  <li>Select the blue <strong>Create branch</strong> box or hit “Enter” on your keyboard. Notice you are now on the code view of your <code class="highlighter-rouge">readme-edits</code> branch, which is a copy of <code class="highlighter-rouge">master</code>.</li>
+</ol>
+
+<h4 id="c-make-and-commit-changes">C. Make and commit changes</h4>
+<p>You are now on your <code class="highlighter-rouge">readme-edits</code> branch.</p>
+
+<ol>
+  <li>Select the <code class="highlighter-rouge">README.md</code> file.</li>
+  <li>Click on the pencil icon (URC) of the file view.</li>
+  <li>Edit the file. Write something about yourself and your project.</li>
+  <li>Write a commit message at bottom of screen.</li>
+  <li>Click the <strong>Commit changes</strong> button.</li>
+</ol>
+
+<h4 id="d-open-a-pull-request-pr">D. Open a Pull Request (PR)</h4>
+
+<ol>
+  <li>Click on the <strong>Pull Request</strong> TAB, which takes you to the PR page</li>
+  <li>Click on the green <strong>New Pull Request</strong> button.</li>
+  <li>Select the branch you made, <code class="highlighter-rouge">readme-edits</code>, to compare with the original, <code class="highlighter-rouge">master</code>.</li>
+  <li>Review your work.</li>
+  <li>Name your pull request and give it a brief description. You can use @mention in your description to ask for feedback by specific persons.</li>
+  <li>Click on the green <strong>Create Pull Request</strong> button.</li>
+</ol>
+
+<h4 id="e-merge-your-pull-request">E. Merge your Pull Request</h4>
+<p>You will merge your  <code class="highlighter-rouge">readme-edits</code> branch into your <code class="highlighter-rouge">master</code> branch.</p>
+
+<ol>
+  <li>Click on the green <strong>Merge pull request</strong> button.</li>
+  <li>Click <strong>Confirm merge</strong>.</li>
+  <li>You can now delete the branch</li>
+</ol>
+
+<hr />
+
+<h2 id="exercise-4">Exercise 4</h2>
+<h3 id="two-person-practise-via-github-gui">Two Person Practise via GitHub GUI</h3>
+<p>This exercise is based on the Mozilla Science WOW lesson on GitHub for Collaborating on Open Projects <br />
+http://mozillascience.github.io/working-open-workshop/github_for_collaboration/</p>
+
+<p>One of you is the Project Lead. The other will be the Contributor.</p>
+
+<h4 id="a-project-lead-create-a-remote-repo-in-your-github-account">A. Project Lead: Create a Remote Repo in your GitHub Account</h4>
+
+<ol>
+  <li>In URC, click <strong>+</strong>, then select <strong>New repository</strong></li>
+  <li>Name your repository <code class="highlighter-rouge">Kathy's Project</code>.</li>
+  <li>Write a short description.</li>
+  <li>Select <strong>Initialize this repository with a README</strong>.\</li>
+  <li>Give your partner the URL to your repo.</li>
+</ol>
+
+<h4 id="b-project-lead-add-a-file">B. Project Lead: Add a File</h4>
+<ol>
+  <li>Click <strong>New file</strong></li>
+  <li>Give the file a name.</li>
+  <li>Put some content in the file.</li>
+  <li>Write a commit message at bottom of screen.</li>
+  <li>Click the <strong>Commit changes</strong> button.</li>
+</ol>
+
+<h4 id="c-project-lead-make-a-label">C. Project Lead: Make a Label</h4>
+<ol>
+  <li>Click on <strong>Issues</strong> tab.</li>
+  <li>Click on the <strong>Labels</strong> box.</li>
+  <li>Add a label called “…………..”</li>
+</ol>
+
+<h4 id="d-project-lead-make-an-issue">D. Project Lead: Make an Issue</h4>
+<ol>
+  <li>Click on <strong>New Issue</strong> button.</li>
+  <li>Give it a title and brief description. You can use @mention in your description to ask for specific feedback.</li>
+  <li>Give it a label.</li>
+</ol>
+
+<h4 id="e-contributor-comment-on-an-issue">E. Contributor: Comment on an Issue</h4>
+<ol>
+  <li>Go to the PL’s repo.</li>
+  <li>Click on the <strong>issues</strong> button to see all the issues.</li>
+  <li>Select the one you wish to respond to.</li>
+  <li>Make a comment, introduce yourself and volunteer to work on the issue.</li>
+</ol>
+
+<h4 id="f-project-lead-reply-to-a-comment">F. Project Lead: Reply to a comment</h4>
+<ol>
+  <li>From your own repo, select the commented issue.</li>
+  <li>Write a reply.</li>
+  <li>Assign the issue to yourself so you can monitor it and answer questions, etc.</li>
+</ol>
+
+<h4 id="h-contributor-fork-and-branch">H. Contributor: Fork and Branch</h4>
+<ol>
+  <li>Go to your own GitHub account.</li>
+  <li>Find the Lead’s repo and fork it.</li>
+  <li>Create a branch in your forked repo (see previous Solo practise for instructions)</li>
+  <li>Give the branch a name which indicates the feature or change you’re working on.</li>
+</ol>
+
+<h4 id="i-contributor-do-work-and-commit">I. Contributor: Do Work and Commit</h4>
+<ol>
+  <li>Make changes in this branch.</li>
+  <li>When you are done, write a commit message, and click on the <strong>Commit changes</strong> button.</li>
+</ol>
+
+<h4 id="j-contributor-make-a-pull-request-to-the-upstream-repo">J. Contributor: Make a Pull Request to the Upstream Repo</h4>
+<ol>
+  <li>Select <strong>Pull Request</strong> tab.</li>
+  <li>Click on <strong>New Pull Request</strong></li>
+  <li>Make sure you’ve selected the correct branch where you’ve made your edits.</li>
+  <li>Name your pull request and provide a brief description (you might wish to include a reference to the related issue #).</li>
+  <li>Click on the green <strong>Create Pull Request</strong> button.</li>
+</ol>
+
+<h4 id="k-project-lead-review-the-pull-request">K. Project Lead: Review the Pull Request</h4>
+<ol>
+  <li>Review changes made by contributor.</li>
+  <li>You can send comments back and forth to discuss the work. Thank your contributor.</li>
+</ol>
+
+<h4 id="l-project-lead-merge-the-changes">L. Project Lead: Merge the changes</h4>
+<ol>
+  <li>Click on the <strong>Merge pull request</strong> button.</li>
+  <li>Close the issue; additional remarks and thanks.</li>
+</ol>
+
+<hr />
+
+<h2 id="miscellaneous-tasks">Miscellaneous Tasks</h2>
+<h4 id="create-a-local-git-repo-via-cli">Create a Local Git Repo (via CLI)</h4>
+<ol>
+  <li>Go to the directory which you wish to make into a Git repo: <code class="highlighter-rouge">$ cd ~/GitRepos/MyProject</code></li>
+  <li>Initialize the directory as a Git repo: <code class="highlighter-rouge">git init</code>.</li>
+  <li>Confirm that it worked by looking for the hidden <code class="highlighter-rouge">.git</code> file in your directory: <code class="highlighter-rouge">ls -a</code></li>
+</ol>
+
+<h4 id="forking-someone-elses-repo-via-github-website">Forking Someone Else’s Repo (via GitHub website)</h4>
+<ol>
+  <li>Go to someone else’s repo and click on the <strong>fork</strong> button on the URC.</li>
+  <li>Wait while GitHub does its work.</li>
+  <li>Check that you now have a new repo in your GitHub account.</li>
+</ol>
+
+<h4 id="cloning-a-repo-onto-your-local-computer-via-cli">Cloning a Repo onto Your Local computer (via CLI)</h4>
+<p><code class="highlighter-rouge">git clone URL-of-Origin-Repo Directory-Address-of-Local-Repo</code><br />
+e.g.<br />
+<code class="highlighter-rouge">git clone https://github.com/chungkky/2017-08-02_Collaborating-with-Git.git ~/GitHubRepros_KC/2017-08-02_Collaborating-with-Git</code></p>
+
+<hr />
+<h2 id="userful-resources">Userful Resources</h2>
+<ul>
+  <li>Git Cheat Sheet (CLI) https://services.github.com/resources/cheatsheets/</li>
+  <li>Visualizing Git Concepts with D3 https://onlywei.github.io/explain-git-with-d3/</li>
+  <li>Collaborative Development Models/Workflows https://help.github.com/articles/about-collaborative-development-models/</li>
+  <li>SWC’s Version Control with Git Lesson (CLI) https://swcarpentry.github.io/git-novice/</li>
+  <li>Mozilla Science Working Open Workshop (WOW) lesson GitHub for Collaborating on Open Projects https://mozillascience.github.io/working-open-workshop/github_for_collaboration/</li>
+  <li>The Pro Git Book https://git-scm.com/book/en/v2</li>
+  <li>Atlassian has several good tutorials on Git:
+    <ul>
+      <li>Index of All Tutuorials https://www.atlassian.com/git/tutorials</li>
+      <li>Getting Started https://www.atlassian.com/git/tutorials/setting-up-a-repository</li>
+      <li>Collaborating https://www.atlassian.com/git/tutorials/syncing</li>
+      <li>Git Workflows https://www.atlassian.com/git/tutorials/comparing-workflows</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="collaborating-with-git-1">Collaborating with Git</h2>
+<p><strong>Serena Jeblee, 2017-02-22</strong></p>
+
+<h2 id="overview">Overview</h2>
+
+<ul>
+  <li>A brief review of basic git usage</li>
+  <li>Some helpful git commands</li>
+  <li>Help! I’ve made a mistake! (aka how to unstage changes and undo commits)</li>
+  <li>Merge conflicts</li>
+  <li>Branches</li>
+  <li>Forking and Pull Requests</li>
+</ul>
+
+<p>If we have time:</p>
+<ul>
+  <li>Stashing changes</li>
+  <li>Rebasing</li>
+</ul>
+
+<h2 id="whirlwind-overview-of-github">Whirlwind Overview of GitHub</h2>
+<ul>
+  <li>What is GitHub?</li>
+  <li>What is version control?
+    <ul>
+      <li>version control helps you collaborate on code especially when your changes might overlap</li>
+      <li>master repo vs local repos</li>
+      <li>master - shared version stored on GitHub or a server</li>
+      <li>local - your local copy that you can play with and make changes to, only seen by you until you push your changes</li>
+    </ul>
+  </li>
+  <li>How to contribute code
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone [repo-url]
+git pull # syncs latest version from the master repo to your local repo
+[edit the code]
+git add [file] # stages code for commit (git remove does not unstage, it stages a deletion, we'll get to unstaging in a bit)
+git commit # create a record of the changes you've made
+git push # sync your local changes to the master repo
+</code></pre></div>    </div>
+  </li>
+  <li>Fork and pull request if you can’t push directly</li>
+  <li>Some rules for good commits
+    <ul>
+      <li>commit should represent one change or a small set of related changes (like a bug fix or new feature)</li>
+      <li>all committed code should be functional and tested</li>
+      <li>make sure the commit message is descriptive</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="get-started">Get Started</h2>
+<ul>
+  <li>Create helloworld.sh
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "Fancy code will go here"
+echo "More fancy code"
+</code></pre></div>    </div>
+  </li>
+  <li>Run it and commit it</li>
+</ul>
+
+<h2 id="help-i-messed-up-and-now-nothing-works">Help! I messed up and now nothing works!</h2>
+<ul>
+  <li>Add junk code to hello.sh and run it</li>
+  <li>Undo the changes to a file
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout -- [file]
+</code></pre></div>    </div>
+  </li>
+  <li>Unstage the changes, but keep them
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git reset --soft HEAD
+</code></pre></div>    </div>
+  </li>
+  <li>Undo the changes and go back x commits
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git reset --hard HEAD~x
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="oops-i-didnt-mean-to-commit-that">Oops, I didn’t mean to commit that</h2>
+<ul>
+  <li>Add the junk code back and commit it</li>
+  <li>Undo a local commit
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git reset --soft HEAD~1 # keeps changes, but undoes the commit
+</code></pre></div>    </div>
+  </li>
+  <li>Pushed commits - do a revert commit
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git revert [commit-hash]
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="the-dreaded-merge-conflict">The Dreaded Merge Conflict</h2>
+<ul>
+  <li>Clone a new copy of your repo</li>
+  <li>Change a line and commit it</li>
+  <li>Go back to your original repo</li>
+  <li>Change same line to “My version is better!”</li>
+  <li>Commit it
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git commit
+git pull
+</code></pre></div>    </div>
+  </li>
+  <li>Resolve the merge conflict, delete »&gt; «&lt; lines, add and commit</li>
+</ul>
+
+<h2 id="branches">Branches</h2>
+<ul>
+  <li>Branches allow you to have different commit histories in the same repo</li>
+  <li>Useful for feature work</li>
+  <li>For more info see: <a href="https://github.com/UofTCoders/studyGroup/blob/gh-pages/lessons/git/branches/lesson.md">https://github.com/UofTCoders/studyGroup/blob/gh-pages/lessons/git/branches/lesson.md</a></li>
+</ul>
+
+<h2 id="forking-and-pull-requests">Forking and Pull Requests</h2>
+<ul>
+  <li>Used when you don’t have direct push access to a repo</li>
+  <li>Fork: creates your own version of the repo that you can commit to</li>
+  <li>When you’re finished committing all of your changes, create a pull request</li>
+  <li>Pull Request: tells the main repo that you have some commits you would like to merge, and allows others to review them first</li>
+</ul>
+
+<h2 id="reviewing-code">Reviewing Code</h2>
+<ul>
+  <li>Look for:
+    <ul>
+      <li>errors (typos, potential infinite loops, concurrency issues, etc)</li>
+      <li>overly complicated code</li>
+      <li>unclear variable names</li>
+      <li>missing comments or documentation</li>
+    </ul>
+  </li>
+  <li>Provide constructive suggestions for how to fix it</li>
+</ul>
+
+<h2 id="updating-the-pull-request">Updating the Pull Request</h2>
+<ul>
+  <li>Try to address all comments, if you’re not going to change something, say why not</li>
+  <li>Make a new commit and push it to the branch your pull request is on</li>
+</ul>
+
+<h2 id="merging-the-pull-request">Merging the Pull Request</h2>
+<ul>
+  <li>Requires push access to the repo</li>
+  <li>If there are conflicts, you’ll have to check out the pull request and resolve them, otherwise you can merge online</li>
+  <li>For more info on how to merge a pull request, see <a href="https://help.github.com/articles/merging-a-pull-request/">https://help.github.com/articles/merging-a-pull-request/</a></li>
+</ul>
+
+      </div>
+    </div>
+  </body>
+</html>
