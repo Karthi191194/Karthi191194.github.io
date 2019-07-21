@@ -1,0 +1,74 @@
+With
+
+with() is for eager loading. That basically means, along the main model, Laravel will preload the relationship(s) you specify. This is especially helpful if you have a collection of models and you want to load a relation for all of them. Because with eager loading you run only one additional DB query instead of one for every model in the collection.
+
+Example:
+
+User > hasMany > Post
+
+$users = User::with('posts')->get();
+foreach($users as $user){
+    $users->posts; // posts is already loaded and no additional DB query is run
+}
+
+-----------------
+
+Has
+
+has() is to filter the selecting model based on a relationship. So it acts very similarly to a normal WHERE condition. If you just use has('relation') that means you only want to get the models that have at least one related model in this relation.
+
+Example:
+
+User > hasMany > Post
+
+$users = User::has('posts')->get();
+// only users that have at least one post are contained in the collection
+
+-----------------
+
+WhereHas
+
+whereHas() works basically the same as has() but allows you to specify additional filters for the related model to check.
+
+Example:
+
+User > hasMany > Post
+
+$users = User::whereHas('posts', function($q){
+    $q->where('created_at', '>=', '2015-01-01 00:00:00');
+})->get();
+// only users that have posts from 2015 on forward are returned
+
+
+-----------------
+
+SEARCH IN RELATION TABLE
+
+Machine::latest()
+    ->where('serial', 'like', '%' . $search . '%')
+    ->orWhere('type', 'like', '%' . $search . '%')
+    ->orWhereHas('warranty', function($q) use($search) {
+        $q->where('first_name', 'like', '%' . $search . '%');
+    })
+    ->get();
+
+
+ $searchText = 'test text';
+        Product::with('owner')->where(function($query) use ($searchText)
+        {
+            $query->where('product_name', 'LIKE', '%' . $searchText . '%');
+
+            $columns = ['product_code', 'place_location', 'remark'];
+
+            foreach ($columns as $column ) {
+                $query->orWhere($column, 'LIKE', '%' . $searchText . '%');
+            }
+
+            $query->orWhereHas('owner', function($q) use ($searchText) {
+                $q->where(function($q) use ($searchText) {
+                    $q->where('name', 'LIKE', '%' . $searchText . '%');
+                    $q->orWhere('company_name', 'LIKE', '%' . $searchText . '%');
+                });
+            });
+
+        });

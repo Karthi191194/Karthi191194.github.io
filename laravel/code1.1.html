@@ -1,0 +1,100 @@
+************************************
+Eloquent:
+************************************
+
+User::query()
+   ->where('name', 'LIKE', "%{$searchTerm}%") 
+   ->orWhere('email', 'LIKE', "%{$searchTerm}%") 
+   ->get();
+   
+This will return all records that have a name or email that contains the string in $searchTerm.    
+
+-- -- --
+
+$user = User::with('Profile')->where('status', 1)->whereHas('Profile', function($q){
+    $q->where('gender', 'Male');
+})->get();
+
+Basically it adds the condition that the user needs to have a profile with gender = Male
+
+//check orWhereHas too
+
+-- -- --
+Parameter Grouping:
+
+DB::table('users')
+            ->where('name', '=', 'John')
+            ->orWhere(function ($query) {
+                $query->where('votes', '>', 100)
+                      ->where('title', '<>', 'Admin');
+            })
+            ->get();
+			
+			
+SQL: select * from users where name = 'John' or (votes > 100 and title <> 'Admin')
+
+Bookmark::orderBy('created_at','desc')
+        ->where('bookmarker', '$search_user')
+        ->where('public', '1')
+        ->orWhere(function ($query) use ($search_keyword) {
+            $query->where('title', 'rlike', $search_keyword)
+                  ->where('contents', 'rlike', $search_keyword);
+        })
+        ->get();
+
+//check https://laravel.com/docs/5.2/queries#advanced-where-clauses
+
+DB::table('users')
+            ->where('name', '=', 'John')
+            ->where(function ($query) {
+                $query->where('votes', '>', 100)
+                      ->orWhere('title', '=', 'Admin');
+            })
+            ->get();
+			
+SQL: select * from users where name = 'John' and (votes > 100 or title = 'Admin')
+
+//https://laravel.com/docs/5.8/queries
+
+-- -- --
+		
+Querying Relationship Absence
+		
+$posts = App\Post::doesntHave('comments')->get();	
+
+$users = User::doesnthave('balance')->get();
+
+-- -- --	
+
+fill vs update:
+
+ // $team->fill(['league' => 'nba'])->save();
+ 
+ //   $team->league = 'nba';
+      $team->update();
+	  
+	 $players = Player::all();
+        foreach ($players as $player){
+            $player->league = 'nba';
+            $player->update();
+        }  
+
+https://www.quora.com/What-are-the-differences-between-fill-method-and-update-method-in-Laravel-eloquent	
+
+-- -- --	
+
+Group By:
+
+$transaction_stock = Transaction::where('user_share_id', $share_id)->get()->groupBy('status')->toArray();
+
+groupBy used above is collection helper.
+Collection helper will modify once the data is retrived from db.
+So using get() and get all the datas and then groupBy.
+
+//try below but not tested
+$pdfdata = DB::table('importpdfs')
+    ->groupBy('Battery')
+    ->limit(4)
+    ->get();
+
+-- -- --

@@ -1,0 +1,76 @@
+1. Windows has multiple drivers, linux has nly single folder as base/root(ROOT).
+	We can type cd / to go the root directory.
+2. BIN - default s/w install directory.
+3. When we start the terminal, by default it will be in the home directory of the user.
+   If we simply type cd, it will go the home directory of the user.(~ - user home dir )
+   We can type cd ~ to go the home directory.
+
+*****************************************************************************************
+   
+We need to create a user, using root access.
+We need to create a group, using root access.
+We need to assign user to a group, using root access.
+
+----------------
+
+chown - assign group & user to the folder/file.
+chmod - set the permisson for the group & user set on chown.
+
+----------------
+
+4 - read
+2 - write
+1 - execute
+
+----------------
+
+Types of file Permissions:
+
+User: These type of file permission affect the owner of the file.
+Group: These type of file permission affect the group which owns the file. Instead of the group permissions, the user permissions will 		apply if the owner user is in this group.
+Other: These type of file permission affect all other users on the system.
+
+----------------
+
+By default Apache creates new files with permissions 644 (-rw-r--r--)
+
+----------------
+
+A user is the owner of the file. By default, the person who created a file becomes its owner. Hence, a user is also sometimes called an owner.
+
+When we run php artisan in the terminal with "zaigo" user access. If log created it will have the user "zaigo" with user "zaigo" primary group.
+
+----------------
+
+ssh command - ssh user_name@host(IP/Domain_name)
+
+----------------
+
+[root@zaigolarge www]# - # represents root user
+
+
+*****************************************************************************************
+   
+LINKS
+Cheat Sheet - https://www.git-tower.com/blog/command-line-cheat-sheet/   
+List users - https://linuxize.com/post/how-to-list-users-in-linux/
+	less /etc/passwd
+chown - https://www.geeksforgeeks.org/chown-command-in-linux-with-examples/
+	ls -l
+usermod - the command ‘usermod‘ is used to modify or change any attributes of a already created user account via command line.
+		https://www.tecmint.com/usermod-command-examples/
+		
+*****************************************************************************************	
+	
+COMMANDS
+*pwd
+*ls
+*ll
+* clear | shortcut ctrl + l
+* rm | with Ctrl+c you will be able to cancel the operation.
+* less - The less command is mostly used for opening large files
+* find - find files
+* grep - find text inside files
+* su - switch to root; su abc - switch to user abc; to go back type exit
+* sudo - execute the folder with super user permission
+* ls -la - list all inculding hidden files

@@ -1,0 +1,33 @@
+SERVICE PROVIDER -
+The function we writing is the service.
+Service container - is a bag that has all the objects of the application
+For custom provider, create provider using artisan cmd and we need to say laravel to bind this to the service container.
+
+-----------------------------------------------------------
+
+Service container:
+In the simplest way to understand service container, we can assume that it is a box that holds various components’ bindings, and they are served as needed throughout the application.
+
+Service provider: (assumption - Service provider is used to obj to any function.)
+So whenever you want to inject a service into other services, you can add it into constructor or method, and it’s injected automatically from service container by the service provider.
+
+class MyDemoClass
+{
+   public function __construct(AwesomeService $awesome_service)
+   {
+        $awesome_service->doAwesomeThing();
+   }
+}
+
+As you can see, the MyDemoClass needs an instance of AwesomeService to instantiate itself. So basically, it has a dependency that needs to be injected. Laravel does this automatically by looking into the service container and injecting the appropriate dependency.
+
+you can look at the contents of file `config/app.php`. You’ll find an array which used to declare all service providers, These service providers will be loaded during the bootstrapping of the Laravel application.
+
+CREATING SERVICE PROVIDER-
+As you see, there are 2 important methods in your class, boot and register.
+
+The register method is the place where you declare all your service container bindings.
+
+On the other hand, the boot method is the place where you can use already registered services via the register method to do awesome things, it means this method is called after all other service providers have been registered.
+
+https://medium.com/grevo-techblog/service-provider-in-laravel-3b7267b0576e

@@ -1,0 +1,34 @@
+Mass assignment :
+
+Mass assignment is a technique for inserting/updating data to a database table, instead of passing data one by one for each fields on database table, with mass assignment you can pass all the data (in array) to the model at once, here's an example.
+
+This is mass assignment:
+
+$user = new User(Input::all());
+$user->save();
+
+This is not mass assignment:
+
+$user = new User();
+$user->name = 'steve';
+$user->email = 'steve@yahoo.com';
+$user->password = Hash::make('123');
+$user->save();
+
+Mass assignment is when you send an array to the model creation, basically setting a bunch of fields on the model in a single go, rather than one by one.
+
+When using mass assignment you need to specify either fillable or guarded array on your models, but not both.
+
+Here's another example of mass assignment
+$arr = array(
+		'name' => 'james',
+		'email' => 'james@yahoo.com',
+                'password' => '123',
+                'address' => 'new york',
+                'age' => 21
+	);
+User::create($arr);
+
+We need to use fillable or guarded only if we use mass assignment(ie. User::create())
+
+//mass assigment - to make more fields store to db without specify each column name and its matching field name. for protection we use guard, fillable.

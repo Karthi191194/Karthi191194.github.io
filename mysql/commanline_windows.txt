@@ -1,0 +1,7 @@
+D:\xamp\mysql\bin>mysql -u root -p
+
+Type \q to exit the mysql program.
+
+CREATE DATABASE dbname;
+
+USE dbname;

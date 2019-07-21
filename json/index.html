@@ -1,0 +1,28 @@
+1. When sending timestamp from PHP to Javascript
+
+startLive = new Date(<?php echo strtotime($start_date)*1000; ?>);
+
+Explanation:
+
+PHP's strtotime function returns a Unix timestamp (seconds since 1-1-1970 at midnight).
+
+Javascript's Date() function can be instantiated by specifying milliseconds since 1-1-1970 at midnight.
+
+So multiply seconds by 1000 and you get milliseconds, which you can use in Javascript.
+
+
+2.
+a.
+
+ echo "var buy ='".json_encode($buy)."';";
+ 
+ o/p var buy ='[{"x":1559651734000,"y":10}]';
+ 
+  so we need to use JSON.parse - to convert string into javascript object
+  buy = JSON.parse(buy);
+
+b.  
+echo "var sell =".json_encode($sell).";";
+o/p var sell =[{"x":1559651964000,"y":1},{"x":1559652150000,"y":9}]
+
+no need to use JSON.parse

@@ -1,0 +1,1 @@
+1. mysql deprecated in PHP 7, so use mysqli.

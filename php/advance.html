@@ -1,0 +1,84 @@
+1. double dollar variable
+
+Input : $x = "Geeks";  
+        $$x = for Geeks;  
+        echo "$x ";  
+        echo "$$x;";   
+        echo $Geeks;
+Output : Geeks 
+         for Geeks
+         for Geeks
+		 
+The value of “for geeks” can be accessed by two ways which are listed below:
+
+*By using Reference variable directly. Example: echo $$x;
+*By using the value stored at variable $x as a variable name for accessing the “for Geeks” value. Example: echo $Geeks; which will give output as “for Geeks” (without quote marks).		 
+
+2. PHP Reference:
+a. Assigning by Value
+b. Assigning by Reference
+
+a. Assigning by Value
+
+$myVar = "Hi there";
+$anotherVar = $myVar;
+$anotherVar = "See you later";
+echo $myVar; // Displays "Hi there"
+echo $anotherVar; // Displays "See you later"
+
+b. Assigning by Reference
+
+$myVar = "Hi there";
+$anotherVar =& $myVar;
+$anotherVar = "See you later";
+echo $myVar; // Displays "See you later"
+echo $anotherVar; // Displays "See you later"
+
+Removing a reference:
+
+$myVar = "Hi there";
+$anotherVar =& $myVar;
+$anotherVar = "See you later";
+unset( $anotherVar );
+echo $myVar; // Displays "See you later"
+
+https://www.elated.com/php-references/
+
+3.
+
+*****************
+
+* PHP traits - refer php.html
+* Type Hinting - refer php.html
+
+* interface, implemnets 
+* Depedency Injection
+It is a very simple concept which you can inject an object to another object.
+https://medium.com/tech-tajawal/dependency-injection-di-container-in-php-a7e5d309ccc6
+In laravel,
+When you try to inject an object into your class, Container uses Reflection API to inspect your constructor method and retrieves what you have defined as a dependency.
+* Reflection
+reflection is the ability of a computer program to examine, introspect, and modify its own structure and behavior at runtime.
+The point that you can stand on and look into your code (reverse-engineering).
+
+/**
+ * Class Profile
+ */
+class Profile {
+   /**
+    * @return string
+    */
+   public function getUserName(): string
+   {
+      return 'Foo';
+   }
+}
+
+// instantiation
+$reflectionClass = new ReflectionClass('Profile');
+
+// get class name
+var_dump($reflectionClass->getName());
+=> output: string(7) "Profile"
+
+* Facades - laravel concept

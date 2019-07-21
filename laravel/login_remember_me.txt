@@ -1,0 +1,16 @@
+When we reach site.
+
+1. Check if session is expired - If not expired, login to the site automatically.
+2. If session expired, check if remember_me cookie present, if yes check with db value(User table). If match login to the site automatically.
+- This will create a new session, if old is expired automatically.(If we checked remember_me)
+3. If we maually logout the remember me will also be deleted.(The remember me token will be saved on the session also).
+
+
+---------
+
+
+Once you've logged out the remember me is removed. That's what a logout is for. Remember me is only for when the user has closed his browser and returns to the page after a while.
+
+Imagine you sit in a library and browse a page, log yourself out and then the next person uses the same computer to open the page and is logged into your account. That would be a security nightmare.
+
+Second thing: If you close the website and reopen it straight away your session is still existing (the thing that tells Laravel, that you are actually the currently logged in user). The session has a certain lifetime - I think it might be 30min but I'm not sure. Try to close the page and open it an hour later. If you've set remember me it should still be logged in, if not you should have to login again.

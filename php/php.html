@@ -123,3 +123,150 @@ $count = 1;
 echo 'The count is ' . $count;
 
 </pre>
+
+PHP does not supports multiple inheritance concept.
+ie.
+class A
+--- class B extends class A
+--- class C extends class A
+----------- now if class D needs to use methods from class B & class C its not possible in PHP- this is multiple inheritance
+
+HERE WE CAN USE TRAITS. https://www.youtube.com/watch?v=npPnXEjMZ0Y
+
+traits cant be initialized only can be used. ie. we cant use like this $obj1 = new Laser; - will throw error
+
+1. trait Laser{
+	public function power(){
+		echo "10";
+	}
+}
+
+2. class Mobile{
+
+}
+
+3. class Galaxy extends Mobile{
+	use Laser;
+}
+
+$obj = new Galaxy;
+$obj -> power(); //this will echo 10
+
+In #3 we have extended Mobile class and used Laser too. ie extended 2 classes, which cant be possible by multiple inheritance
+
+For multiple traits on the class - use Laser, Projector; 
+
+
+if we have same function on both the trait class, PHP will get confusion which to use and shows error.
+
+To rectify use below-
+class Galaxy extends Mobile{
+	use Laser, Projector{
+			Laser::power insteadof Projector; //use power method from Laser Trait
+			Projector::power as Ppower; // use power method from the Projector Trait.
+	}
+} 
+
+$obj = new Galaxy;
+$obj -> Ppower(); 
+
+<pre>
+<h2>Type Hinting in PHP</h2>
+since PHP 5 you can use type hinting to specify the expected data type of an argument in a function declaration. When you call the function, PHP will check whether or not the arguments are of the specified type. If not, the run-time will raise an error and execution will be halted.
+
+Valid types are class names for arguments that receive objects and array for those that receive arrays. Here’s an example:
+
+<pre>
+<?php
+function enroll(Student $student, School $school) {
+echo "Enrolling " . $student->name . " in " . $school->name;
+}
+?>
+</pre>
+What would happen if I tried to enroll myself into medicare?
+<pre>
+<?php
+$me = new Student("Amanda");
+$medicare = new Program("Medicare");
+$enroll = enroll($me, $medicare);
+?>
+</pre>
+Although I am a student, the following error would occur:
+
+Catchable fatal error: Argument 2 passed to enroll() must be an instance of School, instance of Program given, called in typehint.php on line 32 and defined in typehint.php on line 6
+If null is used as a default value for an argument it will also be allowed. Here’s an example, this time with arrays:
+<pre>
+<?php
+function startParty(array $guests, array $food = null) {
+    // party stuff...
+}
+$guests = array("Susan Foreman", "Sarah Jane Smith", "Rose Tyler", "Donna Noble");
+startParty($guests, null);
+?>
+</pre>
+There’ll be a party as long as there are guests, with or without food.
+
+Whereas PHP5 doesn’t allow type hinting for basic data types (integers, floats, strings and booleans), PHP7 does support scalar type hinting.
+
+PHP5 does not support type hinting to basic data types like integers, booleans or strings. So, when we need to validate that an argument belongs to a basic data type, we can use one of PHP’s “is_” family functions. For example:
+
+is_bool - to find out whether a variable is a boolean (true or false).
+is_int - to find out whether a variable is an integer.
+is_float - to find out whether a variable is a float (3.14, 1.2e3 or 3E-10).
+is_null - to find out whether a variable is null.
+is_string - to find out whether a variable is a string.
+On the other hand, PHP7 does support scalar type hinting. The supported types are: integers, floats, strings, and booleans.
+
+The following code example can only work in PHP7.
+
+<pre>
+<?phps
+class car {
+  protected $model;
+  protected $hasSunRoof;
+  protected $numberOfDoors;
+  protected $price;
+
+  // string type hinting
+  public function setModel(string $model)
+  {
+    $this->model = $model;
+  }
+
+  // boolean type hinting
+  public function setHasSunRoof(bool $value)
+  {
+    $this->hasSunRoof = $value;
+  }
+
+  // integer type hinting
+  public function setNumberOfDoors(int $value)
+  {
+    $this->numberOfDoors = $value;
+  }
+
+  // float type hinting
+  public function setPrice(float $value)
+  {
+    $this->price = $value;
+  }        
+}
+?>
+</pre>
+<hr>
+<pre>
+function concatenate($transform, ...$strings) {
+    $string = '';
+    foreach($strings as $piece) {
+        $string .= $piece;
+    }
+    return($transform($string));
+}
+
+echo concatenate("strtoupper", "I'd ", "like ", 4 + 2, " apples");
+// This would print:
+// I'D LIKE 6 APPLES
+</pre>
+The parameters list in the function declaration has the ... operator in it, and it basically means " ... and everything else should go into $strings". You can pass 2 or more arguments into this function and the second and subsequent ones will be added to the $strings array, ready to be used.
+
+https://lornajane.net/posts/2014/php-5-6-and-the-splat-operator

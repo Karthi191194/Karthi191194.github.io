@@ -1,0 +1,72 @@
+1. How to keep filter data after the click to next button in Laravel pagination
+
+Sol:-
+In the controller I use 
+
+$data = $request->all();
+
+To hold all request as the filter and pass this data to view
+
+In View I receive data
+
+{{ $trainers->appends($data)->links() }}
+
+* * * * * * *
+
+2. Eloquent accessors
+
+1. We can modify the value or perform some calculations to the property on retrieving.
+
+In Model:
+<code>
+
+    namespace App;
+
+    use Illuminate\Database\Eloquent\Model;
+
+    class Order extends Model
+    {
+        protected $fillable = [
+            'product_id',
+            'user_id',
+            'tracking_code',
+            'total_cost',
+        ];
+
+        public function getTrackingCodeAttribute($value)
+        {
+            return "Acme_" . $value;
+        }
+
+        // [...]
+
+    }
+	
+</code>
+In above, we defined an accessor for your tracking_codes. The format needed to do this getFooAttribute where Foo is the name of the model property you wish to access.
+
+In Controller:
+<code>
+	$order = \App\Order::find(1);
+    $order->tracking_code;
+</code>
+
+
+3. Using Eloquent mutators
+
+Mutators are like accessors but just work the opposite way. They are used to mutate the data stored to the database as opposed to how it is fetched. Mutators are called when you assign a value to the model property you defined the mutator on.
+
+In Model:
+<code>
+// [...]
+
+    public function setTrackingCodeAttribute($value)
+    {
+        return $this->attributes['tracking_code'] = str_replace('Acme_', '', $value);
+    }
+
+    // [...]
+</code>
+
+
+

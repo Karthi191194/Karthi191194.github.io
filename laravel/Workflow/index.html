@@ -1,0 +1,22 @@
+Request life cycle:
+
+public/index.php
+- loads composer generated autoloader definition.
+- bootstrap/app.php instance of application/service container
+app/Http/Kernel.php
+- error handling, checking env, common middleware
+-route
+-route specific middleware
+-controller
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+HTTP / Console Kernels:
+
+The HTTP Kernel(app/Http/Kernel.php) is used to process requests that come in through the web (HTTP). Website requests, AJAX, that kind of stuff.
+
+The Console Kernel is used when you interact with your application from the command line. If you use artisan, or when a scheduled job is processed, or when a queued job is processed, all of these actions go through the Console Kernel.
+
+Basically, if you go through index.php, you'll be using the HTTP Kernel. Most everything else will be using the Console Kernel.
+
+-----------------------------------------------------------------------------------------------------------------------------

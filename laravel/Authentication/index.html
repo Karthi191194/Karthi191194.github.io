@@ -1,0 +1,13 @@
+The Laravel authentication system is made up of two elements at its core—guards and providers.
+
+Guards:
+You could think of a guard as a way of supplying the logic that’s used to identify the authenticated users. In the core, Laravel provides different guards like session and token. The session guard maintains the state of the user in each request by cookies, and on the other hand the token guard authenticates the user by checking a valid token in every request.
+
+So, as you can see, the guard defines the logic of authentication, and it’s not necessary that it always deals with that by retrieving valid credentials from the back end. You may implement a guard that simply checks the presence of a specific thing in request headers and authenticates users based on that.
+
+Providers:
+If the guard defines the logic of authentication, the authentication provider is responsible for retrieving the user from the back-end storage. If the guard requires that the user must be validated against the back-end storage then the implementation of retrieving the user goes into the authentication provider.
+
+Laravel ships with two default authentication providers—Database and Eloquent. The Database authentication provider deals with the straightforward retrieval of the user credentials from the back-end storage, while Eloquent provides an abstraction layer that does the needful.
+
+Define the guards: config/auth.php

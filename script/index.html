@@ -169,3 +169,74 @@ The defer and async attributes can be specified together. When both are present 
 With defer attribute the order of execution of the script remain the same, but with async the order of execution of the script is not guaranteed. Hence, using defer is best for the cases where a script depends on another. e.g. if you have jQuery and a script that depends on it, then you should use defer on those scripts (including jQuery) to make sure that jQuery is loaded before the dependent scripts.
 <hr>
 indexOf
+
+<hr>
+jQuery("input[name='sites[]']:checked").map(function() {return this.value;}).get().join(','); 
+map - converts to array
+get - get the value(shows the array - by default it will show properties like length with get it will show only array)
+join - like implode in PHP
+
+<hr>
+
+    $('#form-add-transaction').submit(function (evt) {
+        evt.preventDefault();
+        var validated=true;
+        $form =$('#form-add-transaction');
+        var post_message =$('#form-add-transaction p.alert');
+        post_message.hide();
+        $('#form-add-transaction input,#form-add-transaction select').each(function(){
+            var input =$(this);
+            if( input.is(":visible") && input.is(':required')){
+                if(input.val().trim().length===0) {
+					//set true when debugging
+                    validated =false;
+                    input.parent().addClass("has-error");
+                }else{
+                    input.parent().removeClass("has-error");
+                }
+            }
+			
+<hr>
+
+for/in - loop through object iteration
+
+complete - javascript Image complete Property
+
+https://cobwwweb.com/wait-until-all-images-loaded			
+
+<hr>
+*
+$("li.multiselect-all").siblings("li").find("[title='-- please select --']").remove();
+
+*
+function removeSpaces(string){
+return string.split(' ').join('');
+}
+
+*
+Can't able to select all the inputs with class, only the first input with that class will be o/p.
+
+*If we select a class, which is used in multiple places. We will receive all the elements in array.
+If we use this on click, it will show only that particular element. To get the id for it we need to use like element[0].
+
+<hr>
+
+To remember 
+
+1. declaring empty array - selected_player_id = [];
+
+2. If we add "selected_player_id" inside the function, it will reset evertime we calling the function. So adding above the function so the values will retain untill the page loaded.
+
+selected_player_id = [];
+
+function getSelectedPlayerId(){
+    $('.playerselected').each(function(i, obj) {
+        selected_player_id.push($(obj).attr('data-id'));
+    });
+    console.log(selected_player_id);
+}
+
+3. The function written inside jquery ready function cant be called by javascript.
+
+4. If the variable is declared down on the code too, we can use on the top of code.
+if the variable declared down on the code is empty, we cant use on top. - assumption

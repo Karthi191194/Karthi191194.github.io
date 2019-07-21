@@ -1,0 +1,22 @@
+1. create folder "package" at the root of the laravel
+2. create folder "bitfumes" under "package" - vendor name
+3. create folder "contactform" under "bitfumes" - package name
+
+4. composer init - fill the necessary details,composer.json will be generated.
+
+
+For example, the “laravel/framework” package has the vendor as “laravel” and package name is “framework“.
+
+------------------
+
+1. we can't simply use return view('app') on the package, we need to use like view(packagename::app) - packagename is wat we mention inside package provider for view.
+2. using config is also something similar to #1
+
+------------------
+
+Package Created Details & Hints:
+
+blog2\package\snap\contact
+*blog2 - laravel project
+*snap - vendor name
+*contact - package name

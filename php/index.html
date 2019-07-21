@@ -245,7 +245,7 @@ For example here is a controller DPAttachmentsControllerAttachment with a downlo
 
 <hr>
 <h2>Error Reporting</h2>
-<p>Use php_flag in .htaccess:</p>
+<p>Use php_value in .htaccess:</p>
 use php_value for setting ini-settings that need a value:<br>
 php_value memory_limit 64M<br>
 use php_flag for settings that are binary switches:<br>
@@ -258,6 +258,14 @@ error_reporting(E_ALL);
 Unfortunately, these two directives won’t be able to display parse errors such as missing semicolons or missing curly braces. In this case, the PHP ini configuration must be modified.
 <pre>error_reporting(E_ALL & ~E_NOTICE);</pre>
 The “~” character means “not” or “no” so the parameter ~E_NOTICE means not to show notices.
+
+ini_set — Sets the value of a configuration option. The configuration option will keep this new value during the script's execution, and will be restored at the script's ending.
+
+We can modify the php.ini on the server, it will relect on all the sites under that server, else add php.ini on the root of the site and add the required changes.
+
+check "Loaded Configuration File" on phpinfo().
+
+ON godaddy, for php 5 use php5.ini
 
 <hr>
 What are the different types of errors in PHP?
@@ -300,6 +308,20 @@ $temp['uname'] = $this->uname;
 fwrite($fp,print_r($temp,true));
 fclose($fp);   
 <hr>
+function writeLog($data) {
+        $CI = get_instance();
+        if ($CI->session->userdata('username')){
+            $username=$CI->session->userdata('username');
+        }
+        else $username='unknown';
+	$currdate = date('Y-m-d H:i:s');
+        $currmonth=date('Ym');        
+
+	$data2="----------------------------------------------------\n";
+	$data2.='Action performed by '.$username.' at '.$currdate.":\n".$data." \n";
+	file_put_contents(APPPATH.'/logs/apidatapulls_'.$currmonth.'.txt', $data2, FILE_APPEND | LOCK_EX);
+}
+<hr>
 function remove_http($url) {
 			$disallowed = array('http://', 'https://');
 			foreach($disallowed as $d) {
@@ -309,3 +331,11 @@ function remove_http($url) {
 			}
 		return $url;
 }
+
+
+In some cases "CURLOPT_RETURNTRANSFER" in CURL may produce error, if removed the output cant be able to in the variable. If we need to assign value to the variable "output buffer".
+ob_start();
+$address_response = ob_get_clean();
+
+Best Practice:
+filter_var($_POST["jform"]["email1"], FILTER_VALIDATE_EMAIL);

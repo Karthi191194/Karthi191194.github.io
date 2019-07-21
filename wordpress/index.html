@@ -352,3 +352,40 @@ function custom_log($x, $new = false, $show = false) {
         var_dump($x);
     }
 }
+
+<hr>
+Custom Theme Creation:
+Style.css -
+/*
+ Theme Name:   Manzitto-V1
+ Template:     twentysixteen
+ Version:      1
+*/
+Rename theme folder name to manzitto-v1
+
+Child theme:
+Create a folder for child theme and add the below in style.css
+
+/*
+ Theme Name:   Twenty Fifteen Child
+ Theme URI:    http://example.com/twenty-fifteen-child/
+ Description:  Twenty Fifteen Child Theme
+ Author:       John Doe
+ Author URI:   http://example.com
+ Template:     twentyfifteen
+ Version:      1.0.0
+ License:      GNU General Public License v2 or later
+ License URI:  http://www.gnu.org/licenses/gpl-2.0.html
+ Tags:         light, dark, two-columns, right-sidebar, responsive-layout, accessibility-ready
+ Text Domain:  twentyfifteenchild
+*/
+
+template - parent theme directory
+
+need to enque the parent theme css or import in the CSS
+
+https://developer.wordpress.org/themes/advanced-topics/child-themes/
+
+<hr>
+Theme - To make the theme in our controll(rename the theme folder name - it will make the theme in our controll & no theme update will be shown), the name on the style.css is just for displaying name on frontend.
+Plugin - If we change the plugin folder or plugin name the update will be still thr, we need to write some function on the code to disable the update.

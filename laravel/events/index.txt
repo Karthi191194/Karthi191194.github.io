@@ -1,0 +1,3 @@
+https://vegibit.com/8-steps-to-success-with-laravel-events/
+
+https://code.tutsplus.com/tutorials/custom-events-in-laravel--cms-30331

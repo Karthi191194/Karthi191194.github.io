@@ -1,0 +1,23 @@
+*When we run php artisan in the terminal with "zaigo" user access. If log created it will have the user "zaigo" with user "zaigo" primary group.
+
+*It seems there are 2 ways log files can be created:
+
+Via the web application. You access the application from the browser and some code wants to write something to the log file. If the log file is not there (e.g. because you use daily logs and nothing has been logged yet) the owner of the log file will be the webserver user, _www in my case.
+
+Via artisan. I use artisan a lot, generate a controller, a migration whatever. If some code that has been triggered via an artisan call throws an exception then artisan wants to write that exception to the log. If the logfile is not there, it will create the logfile but with the user that executed the artisan command as the owner of the logfile.
+
+@1 creates a logfile with permissions 644 and user _www If artisan needs to write to the log now it has no right to do so and throws an exception.
+
+@2 creates a logfile with permissions 644 and user myMacUser If the webapplication needs to write to the log now it has no right to do so and throws an exception.
+
+config/logging.php
+
+   'daily' => [
+        'driver' => 'daily',
+        'path' => storage_path('logs/laravel.log'),
+        'level' => 'debug',
+        'days' => 7,
+        'permission' => 0664,
+    ],
+	
+https://laravel.com/docs/5.8/logging	

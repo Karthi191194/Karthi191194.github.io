@@ -101,3 +101,11 @@ XL - > 1200
 
 --><div class=”col-md-6"></div> is effectively the same as <div class=”col-md-6 col-lg-6"></div>. Therefore, you only need to use the class for the smallest width you want to support.
 Rows are display:flex, and therefore Columns are equal height in the same row. Use auto-margins or Flexbox align-items and justify-content forhorizontal or vertical alignment (centering, bottom, right, etc..).
+
+
+***************
+
+need to include this, if not media query will not work on mobile devices
+<meta name="viewport" content="width=device-width">
+
+if not we need to use max-device-width on media query.

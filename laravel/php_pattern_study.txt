@@ -1,0 +1,3 @@
+architectural pattern - MVC
+
+design pattern - https://www.script-tutorials.com/design-patterns-in-php/

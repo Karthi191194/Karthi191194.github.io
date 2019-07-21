@@ -1,0 +1,438 @@
+Laravel Eloquent uses Collections to return the results. Collections contains very useful methods that makes them very powerful and helpful to use. You can filter them, modify them and much more with them very conveniently. We will be looking at laravel collection methods in this tutorial.
+
+Collections are not only limited to eloquent results but can be used separately. Eloquent results uses collections. You can simply create a collection by passing an array to collect helper function. All of the next collection methods listed below are applicable to both the eloquent collections and collections itself as well.
+
+Let’s say, you have a post model. You find all the posts with php category.
+
+$posts = App\Post::where('category', 'php')->get();
+The above command returns a collection. A collection is a laravel class that uses arrays internally and adds many features to them.
+
+You can create a collection simply by using collect method like this.
+
+$collection = collect([
+    [
+        'user_id' => '1',
+        'title' => 'Helpers in Laravel',
+        'content' => 'Create custom helpers in Laravel',
+        'category' => 'php'
+    ],
+    [
+        'user_id' => '2',
+        'title' => 'Testing in Laravel',
+        'content' => 'Testing File Uploads in Laravel',
+        'category' => 'php'
+    ],
+    [
+        'user_id' => '3',
+        'title' => 'Telegram Bot',
+        'content' => 'Crypto Telegram Bot in Laravel',
+        'category' => 'php'
+    ],
+]);
+Above array is actually the values of our Post model. In this tutorial, we will be using this array for simplification. Remember everything will work the same way for the eloquent as well.
+
+That’s how you can simply create collections. You can apply all the collection helper method available in Laravel.
+
+******************
+
+When we apply helper methods on eloquent collections, they do not query the database. All the results that we want to get from the database are first taken and then we use collection methods to filter and modify them without any querying to the database.
+
+Table of Contents:-	
+get()
+filter()
+search()
+chunk()
+dump()
+map()
+flatMap()
+zip()
+whereNotIn()
+max()
+pluck()
+each()
+tap()
+pipe()
+contains()
+forget()
+avg()
+
+-------------------------
+get()
+The get method returns the item at a given key. If the key does not exist, null is returned:
+$collection = collect(['name' => 'taylor', 'framework' => 'laravel']);
+
+$value = $collection->get('name');
+
+// taylor
+
+You may optionally pass a default value as the second argument:
+$collection = collect(['name' => 'taylor', 'framework' => 'laravel']);
+
+$value = $collection->get('foo', 'default-value');
+
+// default-value
+
+-------------------------
+
+filter()
+filter, one of the most useful laravel collection method, allows you to filter the collection with a callback. It only passes those items that return true. All the other items are removed. filter returns a new instance without changing the original instance. It accepts value and key as two parameters in the callback.
+
+$filter = $collection->filter(function($value, $key) {
+    if ($value['user_id'] == 2) {
+        return true;
+    }
+});
+ 
+$filter->all();
+all method returns the underlying array. Above code returns the following response.
+
+[
+    1 => [
+        "user_id" => 2,
+        "title" => "Testing in Laravel",
+        "content" => "Testing File Uploads in Laravel",
+        "category" => "php"
+    ]
+]
+
+-------------------------
+
+search()
+search method is used to search the collection for a given value. If the value is present in the collection, the key of the value is returned. If the value does not matches any item, false is returned.
+
+$names = collect(['Alex', 'John', 'Jason', 'Martyn', 'Hanlin']);
+ 
+$names->search('Jason');
+ 
+By default, the search is done using loose comparison. You can pass true as the second argument to the search method to use strict comparison.
+
+You can also pass your own callback function to the search method. It will return the key of the first item that passes the callback truth test.
+
+$names = collect(['Alex', 'John', 'Jason', 'Martyn', 'Hanlin']);
+ 
+$names->search(function($value, $key) {
+    return strlen($value) == 6;
+});
+ 
+-------------------------
+
+chunk()
+chunk method is used to split the collection into multiple smaller collections of given size. It is useful displaying collections into the grid.
+
+$prices = collect([18, 23, 65, 36, 97, 43, 81]);
+ 
+$prices = $prices->chunk(3);
+ 
+$prices->toArray();
+Response from the above code.
+
+[
+    0 => [
+        0 => 18,
+        1 => 23,
+        2 => 65
+    ],
+    1 => [
+        3 => 36,
+        4 => 97,
+        5 => 43
+    ],
+    2 => [
+        6 => 81
+    ]
+]
+
+-------------------------
+
+dump()
+dump method dumps the collection’s items. It is useful for debugging and finding what’s inside the collection at any point in the collection pipeline.
+
+$collection->whereIn('user_id', [1, 2])
+    ->dump()
+    ->where('user_id', 1);
+dump response from the above code.
+
+laravel collection methods dump
+
+-------------------------
+
+map()
+map method is used to iterate through the full collection. It accepts a callback as an argument. value and the key is passed to the callback. Callback can modify the values and return them. Finally, a new collection instance of modified items is returned.
+
+$changed = $collection->map(function ($value, $key) {
+    $value['user_id'] += 1;
+    return $value;
+});
+ 
+return $changed->all();
+Basically, it incremented user_id by one.
+
+Response from the above code looks like this.
+
+[
+    [
+        "user_id" => 2,
+        "title" => "Helpers in Laravel",
+        "content" => "Create custom helpers in Laravel",
+        "category" => "php"
+    ],
+    [
+        "user_id" => 3,
+        "title" => "Testing in Laravel",
+        "content" => "Testing File Uploads in Laravel",
+        "category" => "php"
+    ],
+    [
+        "user_id" => 4,
+        "title" => "Telegram Bot",
+        "content" => "Crypto Telegram Bot in Laravel",
+        "category" => "php"
+    ]
+];
+
+Note: Unlike most other collection methods, transform() modifies the collection itself. If you wish to create a new collection instead, use the map method.
+-------------------------
+
+flatMap()
+
+$collection = collect([
+    ['name' => 'Sally'],
+    ['school' => 'Arkansas'],
+    ['age' => 28]
+]);
+
+$flattened = $collection->flatMap(function ($values) {
+    return array_map('strtoupper', $values);
+});
+
+$flattened->all();
+
+// ['name' => 'SALLY', 'school' => 'ARKANSAS', 'age' => '28'];
+
+* flatMap() does same as map(), but it will convert multi dimensional array into single.
+-------------------------
+
+zip()
+Zip method appends the values of the given array with the values of the collection. Values are added to the same index meaning first value of the array will be merged with the first value of the collection. Here, I am using the collection array that we created above. It works the same way with eloquent collections as well.
+
+$zipped = $collection->zip([1, 2, 3]);
+ 
+$zipped->all();
+JSON Response looks like this.
+
+laravel collection methods zip
+
+So, that’s basically it. If the count of the array is less than the count of collections, laravel will add null at the end of remaining collection elements. Also, if the count of the array is greater than the count of collections, laravel will add a null for the collection elements followed by the subsequent array value.
+
+-------------------------
+
+whereNotIn()
+You can use whereNotIn method to simply filter the collection by a key value not contained within the given array. It’s basically the opposite of whereIn. Also, this method uses loose comparison == when matching values.
+
+Let’s filter the $collection where user_id is neither 1 nor 2.
+
+$collection->whereNotIn('user_id', [1, 2]);
+The above statement will return only the last item from the $collection created above. The first argument is the key and the second argument is an array of values. In case of eloquent, the first argument will be the name of the column and the second argument will be an array of values.
+
+-------------------------
+
+max()
+max method returns the maximum value of a given key. You can find the maximum user_id by calling max. It’s normally used for things like price or any other number but for the sake of demonstration let’s use user_id. It can also be used with strings and in that case, Z > a.
+
+$collection->max('user_id');
+Above statement will return the maximum user_id which in our case is 3.
+
+-------------------------
+
+pluck()
+pluck method returns all of the values for a key. It is useful for extracting values of one column.
+
+$title = $collection->pluck('title');
+$title->all();
+The result looks like this.
+
+[
+  "Helpers in Laravel",
+  "Testing in Laravel",
+  "Telegram Bot"
+]
+When working with eloquent, you can pass a column name as an argument to extract its values. pluck also accepts a second argument and in the case of eloquent collections, it can be another column name. It will result in collection keyed by the values of the second argument.
+
+$title = $collection->pluck('user_id', 'title');
+$title->all();
+The result looks like this:
+
+[
+    "Helpers in Laravel" => 1,
+    "Testing in Laravel" => 2,
+    "Telegram Bot" => 3
+]
+
+-------------------------
+
+each()
+each is a simple method for iterating over the full collection. It accepts a callback with two arguments: item it is iterating through and the key. Key is 0 based index.
+
+$collection->each(function ($item, $key) {
+    info($item['user_id']);
+});
+Above, it is simply logging the user_id of each item.
+
+When logging over eloquent collections, you can access all the column values as item properties. Here’s how we can iterate through all posts.
+
+$posts = App\Post::all();
+ 
+$posts->each(function ($item, $key) {
+    // Do something
+});
+If you return false from your callback, it will stop iterating over items.
+
+$collection->each(function ($item, $key) {
+    // Tasks
+    if ($key == 1) {
+        return false;
+    }
+});
+
+-------------------------
+
+tap()
+tap() method allows you to tap into the collection at any point. It accepts a callback and passes and passes the collection to it. You can do anything with the items without changing the collection itself. So, you can use tap to peak into the collection at any point without mutating the collection.
+
+$collection->whereNotIn('user_id', 3)
+    ->tap(function ($collection) {
+        $collection = $collection->where('user_id', 1);
+        info($collection->values());
+    })
+    ->all();
+In the tap method used above, we modified the collection and then logged the value. You can do anything you want with the collection inside the tap. Response from the above command is:
+
+[
+    [
+        "user_id" => "1",
+        "title" => "Helpers in Laravel",
+        "content" => "Create custom helpers in Laravel",
+        "category" => "php"
+    ],
+    [
+        "user_id" => "2",
+        "title" => "Testing in Laravel",
+        "content" => "Testing File Uploads in Laravel",
+        "category" => "php"
+    ]
+]
+You can see that tap does not modify the collection instance. Learn more about tap helper function and tap collection method in detail.
+
+-------------------------
+
+pipe()
+pipe method is very similar to the tap method in a sense that both of them are used inside the collection pipeline. pipe method passes the collection to the callback and return the result.
+
+$collection->pipe(function($collection) {
+    return $collection->min('user_id');
+});
+Response from the above command is 1. If you return an instance of collection from the pipe callback, you can chain further methods as well.
+
+-------------------------
+
+contains()
+contains method simply checks if the collection contains a given value. It is only true when you pass a single argument.
+
+$contains = collect(['country' => 'USA', 'state' => 'NY']);
+ 
+$contains->contains('USA');
+// true
+ 
+$contains->contains('UK');
+// false
+If you pass a key / value pair to the contains method, it will check whether the given pair exists or not.
+
+$collection->contains('user_id', '1');
+// true
+ 
+$collection->contains('title', 'Not Found Title');
+// false
+
+You can also pass a callback as an argument to the callback method. Callback will run for every item in the collection and if any of them passes the truth test, it will return true else false.
+
+$collection->contains(function ($value, $key) {
+    return strlen($value['title']) < 13;
+});
+// true
+Callback accepts two arguments value of the currently iterating item and the key. Here we are simply checking if the length of the title is less than 13. In Telegram Bot it is 12, so it returned true.
+
+-------------------------
+
+forget()
+forget simply removes the item from the collection. You simply pass a key and it will remove that item from the collection.
+
+$forget = collect(['country' => 'usa', 'state' => 'ny']);
+ 
+$forget->forget('country')->all();
+Response from the above code:
+
+[
+    "state" => "ny"
+]
+forget does not work on multi-dimensional arrays.
+
+-------------------------
+
+avg()
+avg method returns the average value. You simply pass a key as an argument and the avg method returns the average. You can also use the average method which is basically an alias for avg.
+
+$avg = collect([
+    ['shoes' => 10],
+    ['shoes' => 35],
+    ['shoes' => 7],
+    ['shoes' => 68],
+])->avg('shoes');
+Above code returns 30 which is the average of all four numbers. If you do not pass any key to avg method and all the items are numbers, it will return the avg of all numbers. If the key is not passed as an argument and the collection contains key / value pairs, avg method returns 0.
+
+
+$avg = collect([12, 32, 54, 92, 37]);
+ 
+$avg->avg();
+The above code returns 45.4 which is the average of all five numbers.
+
+-------------------------
+https://laravel.com/docs/5.8/collections
+
+Other Collection helpers:
+
+* groupBy()
+* isEmpty() - The isEmpty method returns true if the collection is empty; otherwise, false is returned.
+* flatten() - The flatten method flattens a multi-dimensional collection into a single dimension:
+* reject() - The reject method filters the collection using the given callback. The callback should return  true if the item should be removed from the resulting collection. Filter() is inverse for this.
+
+* macro() - The static macro method allows you to add methods to the Collection class at run time. 
+
+use Illuminate\Support\Str;
+
+Collection::macro('toUpper', function () {
+    return $this->map(function ($value) {
+        return Str::upper($value);
+    });
+});
+
+$collection = collect(['first', 'second']);
+
+$upper = $collection->toUpper();
+
+// ['FIRST', 'SECOND']
+
+
+***************************
+
+
+For example, assume you want to retrieve only orders that have been delivered and assign a delivery status text to them, you can do the following:
+
+    $orders = \App\Order::all()->reject(function ($order) {
+        return $order->is_delivered == false;
+    })
+    ->map(function ($order) {
+        $order->status = "Fulfilled";
+        return $order;
+    });
+	
+https://blog.pusher.com/advanced-laravel-eloquent-usage/	

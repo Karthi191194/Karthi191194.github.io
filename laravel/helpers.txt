@@ -1,0 +1,5 @@
+Default Helper:
+
+File - \vendor\laravel\framework\src\Illuminate\Foundation\helpers.php
+
+composer.lock

@@ -1,0 +1,176 @@
+************************************
+Eloquent:
+************************************
+Add "Use Model Name" at top of the controller or use "App\Flight::" in eloquent.
+If we not added "Use Model Name" at top of the controller or use "App\Flight::" in eloquent and simply use "Flight::", it will show error.(Because, it currently looking for Flight inside the controller folder - Since we are running the controller file, it looks on the folder where the controller is)
+
+List(retrieving data from your database):-
+-------------------------------------------
+
+-> Normal Eloquent:-
+$flights = App\Flight::all();
+
+-> To add additional queries to eloquent:-
+$flights = App\Flight::where('active', 1)->orderBy('name', 'desc')->take(10)->get();
+
+$vehicle = Vehicle::whereNotIn('finance',[123])->where('status', '=', 1)->orderBy('id', 'desc')->with('loan.hpLoan2')->get();
+$batchingplant = Batchingplant::whereNotIn('finance',[123])->orderBy('id', 'desc')->with('loan.hpLoan2')->get();
+$other = VehicleLoansManager::where('loan_type', '=', 'other')->orderBy('id', 'desc')->get();
+
+$data = Vehicle::where([
+				['company_id', '=', $company_id ],
+				['registeration_no', 'like', '%'.$request->data.'%'],
+				])->get(['id','registeration_no', 'chassis_number']);
+
+-> Getting Eloquent data on controller or View:-
+foreach ($flights as $flight) {
+    echo $flight->name;
+}
+
+foreach ($flights as $value) {
+    echo isset($value->hpLoan2->name) ? $value->hpLoan2->name : ""; //Checking if relationship(hpLoan2) is set and show them.
+	isset($value->loan->hpLoan2->name) ? $value->loan->hpLoan2->name : "";
+	$value->loan->repaymentDetails->where('loan_type', 'individual')->count(); 
+	isset($value->loan->repaymentDetails) ? $value->loan->repaymentDetails->where('loan_type', 'individual')->sum('emi_amount') : ""; 
+}
+
+-> To use multple where condition
+$query->where([
+    ['column_1', '=', 'value_1'],
+    ['column_2', '<>', 'value_2'],
+    [COLUMN, OPERATOR, VALUE],
+    ...
+])
+
+-> where not equal to
+Code::where('to_be_used_by_user_id', '!=' , 2)->orWhereNull('to_be_used_by_user_id')->get()
+
+NOTE: all(), get() methods will get data in array so we using foreach.
+
+
+Show(showing single data from your database):-
+----------------------------------------------
+
+-> Retrieve a model by its primary key...
+$flight = App\Flight::find(1);
+
+
+-> Relationship (One to One):- User has one phone
+$phone = User::find(1)->phone;
+
+-> Relationship (One to Many):- Post has many comments
+$comments = App\Post::find(1)->comments;
+
+$comment = App\Post::find(1)->comments()->where('title', 'foo')->first();
+
+->
+$user->posts()->where('active', 1)->get();
+
+->
+$repayments1 = VehicleLoansManager::find($loan_id)->repaymentDetails()->where('loan_type', $loan_type)->get(); //when using custom queries in documentation they seems to use repaymentDetails() instead of repaymentDetails. Simply using repaymentDetails and get() in same query leading to error.
+$repayments2 = VehicleLoansManager::find($loan_id)->repaymentDetails->where('loan_type', $loan_type);
+
+Both will give us the same o/p, $repayments1 o/p array index will be 0,1,2 but $repayments2 o/p array index will be 2,3,5 based on the $loan_id positions. 
+
+-> Relationship (Many to Many):-
+$user = App\User::find(1);
+
+foreach ($user->roles as $role) {
+    //
+}
+
+$roles = App\User::find(1)->roles()->orderBy('name')->get();
+
+Querying Relationship Existence:- https://laravel.com/docs/5.8/eloquent-relationships
+---------------------------------
+// Retrieve all posts that have at least one comment...
+$posts = App\Post::has('comments')->get();
+
+// Retrieve posts with at least one comment containing words like foo%...
+$posts = App\Post::whereHas('comments', function ($query) {
+    $query->where('content', 'like', 'foo%');
+})->get();
+
+Querying Relationship Absence:-
+-------------------------------
+//Post does not have comments
+$posts = App\Post::doesntHave('comments')->get();
+
+
+..................................................................................................................
+PERFORMANCE RELATED:
+
+* Dynamic properties are "lazy loading" (I think this is lazy loading )
+$user = App\User::find(1);
+
+foreach ($user->posts as $post) {
+    //
+}
+
+a.
+$orders = \App\Order::all();
+
+    foreach($orders as $order) {
+        echo $order->user->first_name;
+    }
+
+* eager loading
+$books = App\Book::with('author')->get();
+
+a. 
+$orders = \App\Order::with('user')->get();
+
+    foreach($orders as $order){
+        echo $order->user->first_name;
+    }
+	
+b.Since we need only the user’s first name, we can choose to eager load it like this:
+    $orders = \App\Order::with('user:id,first_name')->get();
+
+    foreach($orders as $order){
+        echo $order->user->first_name;
+    }
+	
+//A little caveat in eager loading properties of a relationship is that you have to include the id column.
+
+c. nested relationship(loading relationship inside relationship)
+$orders = \App\Order::with('user.coupons')->get();
+
+    foreach($orders as $order){
+        echo $order->user->coupons;
+    }
+
+d. load multiple relationship
+    $orders = \App\Order::with(['user', 'product'])->get();
+
+    foreach($orders as $order){
+        echo $order->user->first_name;
+    }	
+	
+	
+..................................................................................................................
+Model Binding
+
+Implicit Route Model Binding:
+
+<?php
+$router->get('/users/{user}', function(App\User $user){
+    dd($user);
+});
+?>
+
+Explicit Route Model Binding:
+
+<?php
+$router->get('/users/{user}', function ($resolvedUser) {
+    dd($resolvedUser);
+});
+?>
+
+https://medium.com/@winni4eva/laravels-route-model-bindings-f051b088e542
+
+
+
+
+
+

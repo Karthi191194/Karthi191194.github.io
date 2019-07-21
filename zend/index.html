@@ -1,0 +1,30 @@
+Zend Version 1.x
+https://code.tutsplus.com/tutorials/zend-framework-from-scratch--net-22502
+
+URL Routing:
+By default, all URLs on your Zend Framework project will follow a certain format:
+	[url]/[controller]/[action]/[GET parameter 1 value]/.../[GET parameter x]/[GET parameter x value]
+Another default is that if a controller and/or action is not provided, they both default to index. So calling http://thenextsocial.local is actually the same as calling http://thenextsocial.local/index/index or even http://thenextsocial.local/index.	
+
+Zend Framework then takes the controller value and looks for it in the controllers folder, namely, our IndexController.php file. Inside the controller file, it takes our action value and executes that method, which is indexAction. After the action has been executed in the controller, ZF then automatically renders the view file inside the views folder in the following format:
+	../application/views/scripts/[controller]/[action].phtml
+	
+Pass Data From a Controller to its View:
+
+To send data to the view, we simply assign variables to the view object and give them values, like so:
+$this->view->variable_name = "variable value";	
+
+Controller:-
+public function indexAction()
+{
+    //action body
+    $this->view->current_date_and_time = date('M d, Y - H:i:s');
+}
+
+View:-
+<div id="welcome">
+    <h1>Welcome to the <span id="zf-name">Zend Framework!</span></h1>
+ 
+    <hr /><h2>It is now <?php echo $this->current_date_and_time; ?></h2>
+     
+    <h3>This is your project's main page</h3>

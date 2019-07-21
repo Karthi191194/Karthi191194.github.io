@@ -1,0 +1,91 @@
+Validation
+* We can write the form validation on the controller itself or on the external file.
+-  Controller
+-  External Request file (form request validation)
+
+* Validation message 1:
+First, let's take a look at how we would tackle custom error messages when you are using either validate() or Validator::make(). Both methods accepts four arguments (form request data, validation rules, messages, and custom attributes).
+With this, we can easily add custom error messages to our application by passing a third argument to the validate() or Validator:make() containing an array of our custom error messages. 
+
+Navigate to app/Http/Controllers/ContactsController.php
+
+public function contact(Request $request)
+{
+    $rules = [
+        'name' => 'required',
+        'email' => 'required|email',
+        'message' => 'required|min:5',
+    ];
+
+    $customMessages = [
+        'required' => 'The :attribute field can not be blank.'
+    ];
+
+    $this->validate($request, $rules, $customMessages);
+
+    // send contact details to email address
+
+    return back()->with("status", "Your message has been received, We'll get back to you shortly.");
+}
+
+or for $customMessages
+
+$customMessages = [
+    'name.required' => 'Yo, what should I call you?',
+    'email.required' => 'We need your email address also',
+    'message.required'  => 'c\'mon, you want to contact me without saying anything?',
+ ];
+ 
+---
+
+$request->validate([
+            'first_name' => 'required|min:2|regex:/^[\pL\s\-]+$/u',
+            'last_name' => 'required|min:2|regex:/^[\pL\s\-]+$/u',           
+            'mobile_number' => 'required|digits:10',
+         
+			'desigination' => 'required',
+            'file' => 'mimes:jpg,jpeg,png|max:1024',
+            'usergroup_id' =>'required',
+            'email'=>'required|regex:/^.+@.+$/i|email',
+        ],['usergroup_id.required'=>'The Role field is required.',
+        'desigination.required'=>'The designation field is required.']);
+
+--- 
+ 
+* Validation message 2:
+
+- php artisan make:request ContactFormRequest
+
+- Navigate to app/Http/Requests/ContactFormRequest.php 
+
+public function rules()
+{
+    return [
+        'name' => 'required',
+        'email' => 'required|email',
+        'message' => 'required|min:5',
+    ];
+}
+
+public function messages()
+{
+    return [
+        'name.required' => 'Yo, what should I call you?',
+        'email.required' => 'We need your email address also',
+        'message.required'  => 'c\'mon, you want to contact me without saying anything?',
+    ];
+}
+
+- Navigate to app/Http/Controllers/ContactsController.php
+
+public function contact(ContactFormRequest $request)
+{
+    // send contact details to email address
+
+    return back()->with("status", "Your message has been received, We'll get back to you shortly.");
+}
+
+
+If validation fails, it will redirect the user to the previous location with an error. Depends on your request type error message will be flash in sessions. If the request was an AJAX then a response with 422 status code will be return with an error in JSON format.
+
+https://scotch.io/tutorials/deep-dive-into-custom-validation-error-messages-in-laravel

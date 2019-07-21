@@ -1,0 +1,36 @@
+1. Return Type:
+
+  public function area (float $r) : float
+    {
+       return 3.14*$r*$r;
+    }
+	
+
+2. Null Coalesce Operator:
+In PHP 7, a new feature, null coalescing operator (??) has been introduced. It is used to replace the ternary operation in conjunction with isset() function.
+
+The coalesce operator (??) returns result of its first operand if it exists, or null if it doesn’t. Eg. 	
+
+Before:
+
+   if (isset ($_GET [‘name’]))
+   {
+        $name = $_GET [‘name’];
+   }
+   else
+        $name = null;
+	
+PHP 7:	
+		
+$name = $_GET [‘name’]?? Null;		
+
+3.
+public function functionName(?int $arg = 0)
+
+It's a new feature in php7.1
+
+http://php.net/manual/en/migration71.new-features.php
+
+A question mark means that the type hinted parameter (or return value) is also allowed to be null.
+
+So in your example $arg can be null or any integer.

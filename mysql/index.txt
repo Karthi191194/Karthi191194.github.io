@@ -1,0 +1,89 @@
+SQL: SQL is a query language.
+MYSQL: MySQL is database software. It used "SQL" language to query the database.
+
+*If we add 10.5 to int, it will save as 11.
+
+Float vs Double vs Decimal:
+FLOAT is accurate to approximately 7 decimal places, and DOUBLE upto 14.
+A precision from 0 to 23 results in a 4-byte single-precision FLOAT column. A precision from 24 to 53 results in an 8-byte double-precision DOUBLE column.
+
+Currently DECIMAL supports a max of 65 digits, as DECIMAL(M,D) where the largest value for M allowed is 65, and the largest value of D allowed is 30.
+
+
+if use to store exact numeric data values use decimal type
+
+1.3 float ADDED to 1.3 of different types:
+
+|float              | double | decimal |
++-------------------+------------+-----+
+|2.5999999046325684 | 2.6    | 2.60000 |
+
+1.3 float MULTIPLIED by 1.3 of different types:
+
+| float              | double             | decimal      |
++--------------------+--------------------+--------------+
+| 1.6899998760223411 | 1.6900000000000002 | 1.6900000000 |
+
+**************************************
+
+* Left Join
+
+SELECT
+    p.product_name,
+    o.order_id,
+    i.item_id,
+    o.order_date
+FROM
+    products p
+ LEFT JOIN order_items i
+ ON i.product_id = p.product_id
+ LEFT JOIN orders o
+ ON o.order_id = i.order_id
+ORDER BY
+    order_id;
+	
+//Join perform from top to bottom. 
+First, "products p LEFT JOIN order_items i" executes and gets result.
+Second, the result from the first is then left join with orders " LEFT JOIN orders o".
+and finally we get the o/p
+	
+As always, SQL Server processes the WHERE clause after the LEFT JOIN clause.
+
+LEFT JOIN: conditions in ON vs. WHERE clause
+
+WHERE:
+The following query finds the products that belong to the order id 100:
+
+SELECT
+    product_name,
+    order_id
+FROM
+    production.products p
+LEFT JOIN sales.order_items o 
+   ON o.product_id = p.product_id
+WHERE order_id = 100
+ORDER BY
+    order_id;
+	
+O/P - Only products with order id 100 will be displayed.
+
+ON:
+Let’s move the condition order_id = 100 to the ON clause:
+
+SELECT
+    p.product_id,
+    product_name,
+    order_id
+FROM
+    production.products p
+    LEFT JOIN sales.order_items o 
+         ON o.product_id = p.product_id AND 
+            o.order_id = 100
+ORDER BY
+    order_id DESC;
+
+0/P - All the products will be displayed, only the order id 100	will be displayed on the order id column, for others it will show as null.
+
+http://www.sqlservertutorial.net/sql-server-basics/sql-server-left-join/
+
+**************************************

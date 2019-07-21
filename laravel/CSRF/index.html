@@ -1,0 +1,23 @@
+1. CSRF token will be generated only once per the session. All the request in a particular session will have the same value.
+
+2. When logged in -
+* CSRF will be saved on the respective session.
+When not logged in(eg. login page) -
+* CSRF will be saved on seperate session file.
+
+3. By default session are stored in a file under "Storage/Framework/Session/"
+
+
+Explanation:
+
+It is not necessary to refresh the CSRF token for every request, generating the token per session will also be safe. Have a look at the Owasp cheat sheet(https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.md) for a better explanation.
+
+Regenerating the token for every request can be done, but can result in usability issues. I think this is the reason why Laravel implements the token per session approach.
+
+Session Concept - Illuminate/Session/Store.php
+
+----------
+
+The root of it all is to make sure that the requests are coming from the actual users of the site. A csrf token is generated for the forms and Must be tied to the user's sessions. It is used to send requests to the server, in which the token validates them. This is one way of protecting against csrf, another would be checking the referrer header.
+
+//Do not rely on the referer header, it can easily be faked.
