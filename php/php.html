@@ -270,3 +270,13 @@ echo concatenate("strtoupper", "I'd ", "like ", 4 + 2, " apples");
 The parameters list in the function declaration has the ... operator in it, and it basically means " ... and everything else should go into $strings". You can pass 2 or more arguments into this function and the second and subsequent ones will be added to the $strings array, ready to be used.
 
 https://lornajane.net/posts/2014/php-5-6-and-the-splat-operator
+
+<hr>
+
+self vs this
+
+Use $this to refer to the current object. Use self to refer to the current class. In other words, use  $this->member for non-static members, use self::$member for static members.
+
+<hr>
+
+property inside class without public, private, protected will throw error. eg $test inside class.

@@ -339,3 +339,10 @@ $address_response = ob_get_clean();
 
 Best Practice:
 filter_var($_POST["jform"]["email1"], FILTER_VALIDATE_EMAIL);
+
+<hr>
+Hash
+function hashpass($password){
+$password = hash("SHA512", base64_encode(str_rot13(hash("SHA512", str_rot13($password)))));
+return $password;
+}

@@ -240,3 +240,14 @@ function getSelectedPlayerId(){
 
 4. If the variable is declared down on the code too, we can use on the top of code.
 if the variable declared down on the code is empty, we cant use on top. - assumption
+
+<hr>
+jQuery.fn.extend() - The jQuery.fn.extend() method extends the jQuery prototype ( $.fn ) object to provide new methods that can be chained to the jQuery() function.
+
+<hr>
+
+Get selected options text
+
+$("#test").change(function(){
+	console.log($('#test option:selected').html());
+});

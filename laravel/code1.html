@@ -167,10 +167,55 @@ $router->get('/users/{user}', function ($resolvedUser) {
 });
 ?>
 
+
+............................................................................
+$users = User::whereHas('roles',function ($q) use ($term_prep) {
+           $q->where('roles.name', 'vendor');
+           $q->where(function ($query) use ($term_prep) {
+               $query->where('users.name', 'LIKE', $term_prep);
+               $query->orWhere('users.email', 'LIKE', $term_prep);
+           });
+       })->paginate(10);
+	 
+---	 
+	   
+condition in parent table & condition in child table	-   
+	
+ $exFantasyNBAPlayers = PlayerShareprice::where('league', 'nba')->with(['dailyLog' => function($q) use($year, $week){
+            $q->where('fantasy_nba_player_daily_logs.week','=', $week)->where('fantasy_nba_player_daily_logs.year', '=', $year);
+        }])->get();
+		
+fantasy_nba_player_daily_logs - table name		
+		
+show all playershares with its dailylog(if the week & year full fills the condition, the daily log will be shown else null will be displayed.).		
+	
+---
+
+checking relation exists -
+$exFantasyNBAPlayer->dailyLog()->exists()
+
+---
+
+groupby and sum
+
+status column - buying, selling
+
+$shares = Transaction::where('playerId', '=', $player_id)->groupBy('status')->sum('quantity');
+// This will return only one value, even if their is 2 values on status. Since sum returns only one value. So using below.
+
+$shares = Transaction::where('playerId', '=', $player_id)->select(\DB::raw('sum(quantity) quantity'))->groupBy('status')->get();	
+	
+............................................................................
+
+
+
+
 https://medium.com/@winni4eva/laravels-route-model-bindings-f051b088e542
 
 
 
 
 
-
+eloquent cheat sheet - https://hackernoon.com/eloquent-relationships-cheat-sheet-5155498c209
+relationship - https://itsolutionstuff.com/post/laravel-one-to-one-eloquent-relationship-tutorialexample.html
+https://blog.hashvel.com/posts/laravel-eloquent-relationships/

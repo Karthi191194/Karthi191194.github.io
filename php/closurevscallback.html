@@ -1,0 +1,20 @@
+function callFunc1(Closure $closure) {
+    $closure();
+}
+
+function callFunc2(Callable $callback) {
+    $callback();
+}
+
+function xy() {
+    echo 'Hello, World!';
+}
+
+callFunc1("xy"); // Catchable fatal error: Argument 1 passed to callFunc1() must be an instance of Closure, string given
+callFunc2("xy"); // Hello, World!
+
+
+So if you only want to type hint anonymous function use: Closure and if you want also to allow normal functions use callable as type hint.
+
+
+Type hint - mentioning wat type of argument(class, array...) should be accepted.

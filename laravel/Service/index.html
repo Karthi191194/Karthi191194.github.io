@@ -3,6 +3,8 @@ The function we writing is the service.
 Service container - is a bag that has all the objects of the application
 For custom provider, create provider using artisan cmd and we need to say laravel to bind this to the service container.
 
+SERVICE ARE ADDED TO THE SEARVICE CONTAINER BY SERVICE PROVIDER.
+
 -----------------------------------------------------------
 
 Service container:
@@ -31,3 +33,10 @@ The register method is the place where you declare all your service container bi
 On the other hand, the boot method is the place where you can use already registered services via the register method to do awesome things, it means this method is called after all other service providers have been registered.
 
 https://medium.com/grevo-techblog/service-provider-in-laravel-3b7267b0576e
+
+
+-------------
+
+SERVICE PROVIDER 2 TYPES
+1. Normal
+2. Defered - Only loads when application needs it. Check for cache service provider.

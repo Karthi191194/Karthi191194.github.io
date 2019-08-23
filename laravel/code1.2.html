@@ -72,3 +72,7 @@ Machine::latest()
             });
 
         });
+
+----
+
+Category::select('id','description','category_name',DB::raw("CONCAT('$categoryimg_url/',category_photo) AS category_photo"),DB::raw("CONCAT('$displayimg_url/',display_image) AS display_image"))->where('parent_id',0)->get();

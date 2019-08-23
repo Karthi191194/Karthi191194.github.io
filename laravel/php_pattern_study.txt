@@ -1,3 +1,6 @@
 architectural pattern - MVC
 
 design pattern - https://www.script-tutorials.com/design-patterns-in-php/
+
+
+singeleton - can create instance onlyonce.

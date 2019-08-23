@@ -1,0 +1,66 @@
+Folder Structure:
+
+*package.json(for every npm application it will their)
+- depedencies : which are needed ehen developing
+- dev depedencies :
+typescript will be here nly
+tslint - linting | code standards, throw error if we miss semicolon
+- scripts : we can run any command inside scripts by below
+npm run 'key value' | npm run build
+(for start, test only - we can use npm start, npm test or ng start, ng test)
+ng stands for aNGular
+
+-----
+
+every framework/libraries as a .json file (angular json, tslint json file)
+
+-----
+
+angular.json
+
+architecut.build.options.output - ng built or npm built will create a folder mentioned here & add the o/p
+
+architecut.build.options.polyfills - some browser doesn't understand latest javascripts, this will use plain old library.
+
+architecut.build.options.assests - path for assets.
+
+styles
+
+scripts
+
+-----
+
+tsconfig.json
+
+module -  typescript wat we write in
+target -  typescript wat to change in - all browsers should understand fr that
+
+-----
+
+tslint.json
+rules we write
+
+debugger function will show error in angular, we can disable this using tslint.json
+
+-----
+
+
+The .map files are for js and css (and now ts too) files that have been minified. They are called SourceMaps. When you minify a file, like the angular.js file, it takes thousands of lines of pretty code and turns it into only a few lines of ugly code. Hopefully, when you are shipping your code to production, you are using the minified code instead of the full, unminified version. When your app is in production, and has an error, the sourcemap will help take your ugly file, and will allow you to see the original version of the code. If you didn't have the sourcemap, then any error would seem cryptic at best.
+
+Same for CSS files. Once you take a SASS or LESS file and compile it to CSS, it looks nothing like it's original form. If you enable sourcemaps, then you can see the original state of the file, instead of the modified state.
+
+So, to answer you questions in order:
+
+What is it for? To de-reference uglified code
+How can a developer use it? You use it for debugging a production app. In development mode you can use the full version of Angular. In production, you would use the minified version.
+Should I care about creating a js.map file? If you care about being able to debug production code easier, then yes, you should do it.
+How does it get created? It is created at build time. There are build tools that can build your .map file for you as it does other files.
+
+-----
+
+e2e - end 2 end testing
+node_modules - these are downloaded as per mentioned on the package.json
+
+src > app > index.html, src > app > main.ts - starting point of application
+
+emvironments - fr eg if we have seperate API URL for production, local env we can configure here. 

@@ -1,0 +1,13 @@
+CORS (cross-origin resource sharing) 
+
+JavaScript can only make calls to URLs that live on the same origin as the location where the script is running. For example, if a JavaScript app wishes to make an AJAX call to an API running on a different domain, it would be blocked from doing so thanks to the same-origin policy.
+
+Access-Control-Allow-Origin: * - for all domains
+Access-Control-Allow-Origin: https://example.com -for specific domain
+
+---
+
+When we send a request via javascript to another domain, We receive a response from the another domain, the response header should have 'Access-Control-Allow-Origin' if not we will receive CORS error in our side.
+
+
+https://cdn.auth0.com/blog/express-cors:04.png

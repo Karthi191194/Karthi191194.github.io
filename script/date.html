@@ -1,0 +1,5 @@
+When timestamp is convereted to date in javascript, the date & time will be caluclated using browser timezone.
+
+When converting PHP timestamp to Javascript timestamp, multiply by 1000. (Javascript time is calculated in milli seconds)
+
+Always convert the PHP date to timestamp and send to javascript. To avoid timezone issues.
