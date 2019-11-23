@@ -1,0 +1,7 @@
+3 methods:
+
+1. Using model constructor - not prefered for production.
+2. Using model, events, listener.
+3. Using observer. - Use when using more events.
+
+https://www.youtube.com/watch?v=7GUaH6BI_V0

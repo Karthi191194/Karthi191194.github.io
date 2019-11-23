@@ -1,0 +1,55 @@
+php artisan make:auth - command used till laravel V5.8 is removed on laravel V6.0.
+
+install laravel ui package using the cmd - composer require laravel/ui
+
+after installting run the command for auth - php artisan ui:auth
+
+-> This will modify the below files
+* routes/web.php - will add below codes on the files
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+-> This will create the below files
+
+*app/Http/Controllers/HomeController.php
+*resources/views/auth/
+*resources/views/home.blade.php
+*resources/views/layouts/
+
+->will show login, register links on the home page now.
+
+----------------------
+
+REMEMBER: Here you’ll not find any “css” or “js” folder inside “public” folder of your project, it was created automatically in previous versions of laravel after firing “php artisan make:auth” command for the login and registration pages and other related pages design.
+
+Now to get a scaffold of CSS and JS file you have to follow the below steps.
+
+
+Fire the following command in terminal
+
+npm install
+
+> Which will install all the node dependencies in your project.
+
+
+After installing npm, fire the next command
+
+npm run dev
+
+> As laravel built-in “webpack.min.js” file considers default scaffolding as SASS, you have to run this to make your own scaffolding.
+
+NOTE: After running “npm run dev” command in terminal you’ll find 2 folders inside your public folder. Which will be “css” and “js” and you’ll find the files inside of it.
+
+Now just refresh your login url and you’ll find the designed layout.
+
+----------------------
+
+laravel 6.2
+
+Laravel released v6.2 yesterday with a new password confirmation feature that enables you to require a logged-in user to re-enter their password before being allowed access to a route.
+
+https://laravel-news.com/new-password-confirmation-in-laravel-6-2
+
+https://blog.laravel.com/password-confirmation

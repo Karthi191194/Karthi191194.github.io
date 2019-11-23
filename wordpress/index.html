@@ -405,3 +405,29 @@ To set up shipping in WooCommerce, you first set up shipping zones, then add met
 The shipping rate will be calculated based on the state, country, zip code entered on the checkout page.
 
 If payment method needs to show only for particular shipping zone, set on  the payment settings page.
+
+<hr>
+
+Files for blog -
+
+* index.php
+*template parts/ content.php
+
+<hr>
+
+// Load the Internet Explorer specific stylesheet.
+	wp_enqueue_style( 'twentysixteen-ie', get_template_directory_uri() . '/css/ie.css', array( 'twentysixteen-style' ), '20160816' );
+	wp_style_add_data( 'twentysixteen-ie', 'conditional', 'lt IE 10' );
+
+	// Load the Internet Explorer 8 specific stylesheet.
+	wp_enqueue_style( 'twentysixteen-ie8', get_template_directory_uri() . '/css/ie8.css', array( 'twentysixteen-style' ), '20160816' );
+	wp_style_add_data( 'twentysixteen-ie8', 'conditional', 'lt IE 9' );
+
+	// Load the Internet Explorer 7 specific stylesheet.
+	wp_enqueue_style( 'twentysixteen-ie7', get_template_directory_uri() . '/css/ie7.css', array( 'twentysixteen-style' ), '20160816' );
+	wp_style_add_data( 'twentysixteen-ie7', 'conditional', 'lt IE 8' );
+	
+	
+<hr>
+
+mailchimp - audience | list	

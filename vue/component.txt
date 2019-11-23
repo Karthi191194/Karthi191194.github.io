@@ -1,0 +1,49 @@
+Vuejs 2 provides some methods that are triggered at various points from creating a component up until the component is destroyed. This is called the Instance Lifecycle, also known as the Component’s Lifecyle.
+
+Vuejs 2 Lifecycle hooks
+beforeCreate() : This method is called synchronously after the Vue instance has just been initialized, before data observation and event/watcher setup.
+created() : This method is called synchronously after the Vue instance is created. Data observation, computed properties, methods and event callbacks have already been set up at this stage but the mounting phase has not started yet.
+beforeMount() : This method is called right before the component is mounted. So it is called before the render method is executed.
+mounted() : This method is called after the component has just been mounted.
+beforeUpdate() : This method is called when the data changes, before the virtual DOM is re-rendered and patched.
+updated() : This method is called after a data change causes the virtual DOM to be re-rendered and patched.
+activated() : This method is called when a kept-alive component is activated.
+deactivated() : This method is called when a kept-alive component is deactivated.
+beforeDestroy() : This method is called right before a Vue instance or component is destroyed. At this stage the instance is still fully functional.
+destroyed() : This method is called after a Vue instance or component has been destroyed. When this hook is called, all directives of the Vue instance have been unbound, all event listeners have been removed, and all child Vue instances have also been destroyed.
+
+--
+
+Vuejs 2 possess some built-in components such as component, transition, transition-group, keep-alive and slot.
+
+https://vuejs.org/v2/api/#component
+
+----------------------------------------------------------
+
+Passing data to the component:
+1.
+<div id="app">
+       <welcome :title="'This cool app'"></welcome>
+</div>
+
+2.	
+<template>
+   [...]
+    <div class="title m-b-md">
+      {{title}}
+    </div>
+  [...]
+</template>
+
+<script>
+  export default {
+      props : ['title']
+  }
+
+  </script>
+
+------------
+npm run prod
+------------
+	
+	

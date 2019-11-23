@@ -491,3 +491,72 @@ Route::get('/foo', function()
 
 ------------------------------------------
 
+use Illuminate\Database\Eloquent\{Scope, Model, Builder};
+
+--------------------------------
+
+php artisan route:list
+php artisan route:list --method=get
+php artisan route:list --name=user
+php artisan route:list --path=admin
+
+-----------------------------------
+
+php artisan --version
+
+
+---
+
+Seeder vs Factory
+
+Database seeder is used to populate tables with data.
+
+Model factories is a convenient centralized place to define how your models should be populated with fake data.
+
+In seeder class you would leverage model factories, and model factories will most likely use another library to generate random fake data, such as fzaninotto/faker.
+
+------------
+
+Laravel old method not returning password values:
+
+Laravel intentionally blocks password and password_confirmation. Generally it is good practice not to return the password back to the user. It does this in it's exception handler.
+
+If you really want to include it, update your app/Exceptions/Handler.php file to remove password and password_confirmation from the dontFlash array.
+
+----------------
+
+https://laravel.com/api/6.x/index.html
+
+-----------
+
+$notification = array(
+	'message' => 'I am a successful message!', 
+	'alert-type' => 'success'
+);
+
+return Redirect::to('/')->with($notification);
+
+<script>
+  @if(Session::has('message'))
+    var type = "{{ Session::get('alert-type', 'info') }}";
+    switch(type){
+        case 'info':
+            toastr.info("{{ Session::get('message') }}");
+            break;
+        
+        case 'warning':
+            toastr.warning("{{ Session::get('message') }}");
+            break;
+
+        case 'success':
+            toastr.success("{{ Session::get('message') }}");
+            break;
+
+        case 'error':
+            toastr.error("{{ Session::get('message') }}");
+            break;
+    }
+  @endif
+</script>
+
+-----------

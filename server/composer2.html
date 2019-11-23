@@ -35,3 +35,50 @@ In the above example, if you wanted to check out the my-feature branch, you woul
 When branch names look like versions, we have to clarify for composer that we're trying to check out a branch and not a tag. In the above example, we have two version branches: v1 and v2. To get Composer to check out one of these branches, you must specify a version constraint that looks like this: v1.x-dev. The .x is an arbitrary string that Composer requires to tell it that we're talking about the v1 branch and not a v1 tag (alternatively, you can name the branch v1.x instead of v1). In the case of a branch with a version-like name (v1, in this case), you append -dev as a suffix, rather than using dev- as a prefix.
 
 https://getcomposer.org/doc/articles/versions.md
+
+
+-----------
+https://dev.to/blocksbylukas/the-magic-behind-autoloading-php-files-using-composer-1e19
+
+normal COMPOSER flow -
+* vendor/autoload.php
+* triggered Standard PHP Library (SPL) function spl_autoload_register(callable $autoloadFunction) the composer is using to register itself to take over the responsibility of autoloading PHP files on runtime (Classes that are used in most request can be pre-loaded).
+* composer.json file :
+
+    "autoload": {
+        "classmap": [
+            "src/Christmas/Santa.php"
+        ]
+    }
+	
+	would result after running composer dump-autoload to a new Hash file: vendor/composer/autoload_classmap.php
+	
+    "autoload": {
+        "psr-4": {
+            "Christmas\\": "src/Christmas"
+        }
+    }
+
+	after running composer dump-autoload you will get a new Hash like structured file vendor/composer/autoload_psr4.php
+	
+//PSR-4 will follow strict rules. Use classmap for non-namespaced classes which don't fit my normal PSR-4 rules. 
+
+-----------
+https://divinglaravel.com/laravels-package-auto-discovery
+
+package auto discovery -
+
+Laravel subscribes to this event from within the main composer.json file:
+
+"scripts": {
+    "post-autoload-dump": [
+        "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+        "@php artisan package:discover"
+    ]
+}
+
+
+First it calls a postAutoloadDump() static method, this method handles clearing any cached services or previous discovered packages, the other thing is that it runs the package:discover artisan command, and this is where all the magic happens.
+
+	
+-----------	

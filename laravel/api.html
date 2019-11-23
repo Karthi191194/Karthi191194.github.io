@@ -1,3 +1,29 @@
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+authentication:
+
+https://itnext.io/a-simpler-secure-solution-for-laravel-api-token-based-authentication-82b582272770
+https://www.cloudways.com/blog/api-token-authentication-laravel-5-5/
+https://codebriefly.com/laravel-5-6-custom-token-base-api-authentication/
+https://gist.github.com/nasrulhazim/25948dbf1f3a7d378bb5fe0463b49578
+https://mydnic.be/post/super-easy-way-to-authenticate-an-api-user-in-your-laravel-application-without-using-laravel-passport
+
+use normal token based for small insecure applications.
+* laravel passport - https://tutsforweb.com/laravel-passport-create-rest-api-with-authentication/
+* jwt
+
+
+
+$user = $request->user();
+// or...
+$user = Auth::user();
+
+
+---
+
+https://blog.flicher.net/ionic-4-user-registration-login-tutorial/
+https://blog.flicher.net/laravel-rest-api-passport-authentication-for-ionic-app/
+https://medium.com/nycdev/create-a-full-mobile-app-with-ionic4-2849df0d47c3

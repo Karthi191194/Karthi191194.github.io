@@ -251,3 +251,32 @@ Get selected options text
 $("#test").change(function(){
 	console.log($('#test option:selected').html());
 });
+
+<hr>
+
+a and b below would be considered parameters.
+
+function something(a, b) {     ... }
+
+and "hello" and 10 would be considered arguments.
+
+something("hello", 10);
+
+<hr>
+
+Objects -
+
+* A JavaScript object is a collection of named values.
+* The named values, in JavaScript objects, are called properties.
+
+var person = {
+  firstName: "John",
+  lastName : "Doe",
+  id       : 5566,
+  fullName : function() {
+    return this.firstName + " " + this.lastName;
+  }
+};
+
+calling method in a function - 
+name = person.fullName();

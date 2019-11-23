@@ -1,0 +1,54 @@
+ES6
+
+----------
+
+https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export#Using_the_default_export
+https://www.geeksforgeeks.org/javascript-importing-and-exporting-modules/
+
+Named exports are useful to export several values. During the import, it is mandatory to use the same name of the corresponding object.
+
+But a default export can be imported with any name.
+
+
+-----
+
+Before you import something you need to export that.
+
+-----
+
+1. function square(val) { return val * val }
+
+square(4);
+
+export default square;
+
+2. Now you will import this using import statement
+
+import Square from './square.js’
+
+----
+util.js
+
+1. function test(a, b){
+return a+b;}
+export {test}
+
+2.import {test} from './util.js'
+console.log(test(1, 2))
+
+----
+
+In case if you are exporting something without using default then you need to import that using
+{ annotations}
+
+example:
+
+1. a.js
+
+export const a = 5;
+
+2. main.js file
+
+import { a} from ‘./a.js’
+
+----

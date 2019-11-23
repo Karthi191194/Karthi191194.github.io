@@ -1,0 +1,18 @@
+Modules as independent units made up of components
+Components as group of reusable code containing more than one element
+
+A module exports some classes, function and values from its code.
+Components control views
+
+---
+
+need to use type="module" if we using module inside any js file
+<script type="module" src="main.js"></script>
+for old browsers whih doesn't supports module we can write
+<script nomodule ></script>
+
+<script type="module" src="app.js"></script>
+<script nomodule src="classic-app-bundle.js"></script>
+In modern user agents that support module scripts, the script element with the nomodule attribute will be ignored, and the script element with a type of "module" will be fetched and evaluated (as a module script). 
+
+---

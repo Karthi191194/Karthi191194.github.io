@@ -76,3 +76,46 @@ Machine::latest()
 ----
 
 Category::select('id','description','category_name',DB::raw("CONCAT('$categoryimg_url/',category_photo) AS category_photo"),DB::raw("CONCAT('$displayimg_url/',display_image) AS display_image"))->where('parent_id',0)->get();
+
+----
+
+class Game extends Eloquent {
+    // many more stuff here
+
+    // relation without any constraints ...works fine 
+    public function videos() {
+        return $this->hasMany('Video');
+    }
+
+    // results in a "problem", se examples below
+    public function available_videos() {
+        return $this->videos()->where('available','=', 1);
+    }
+}
+
+$game = Game::find(1);
+var_dump( $game->available_videos()->get() );
+
+-----
+
+Conditionally adding instructions to laravel's query builder
+https://themsaid.com/laravel-query-conditions-20160425
+
+-----
+
+eloquent with select:
+
+$user = User::select('id', 'email', 'phone')->where('id', Auth::user()->id)->with('customer_details')->first();
+
+$user = User::select('id', 'email', 'phone')
+    ->where('id', Auth::user()->id)
+    ->with('customer_details' => function (Builder $query) {
+        $query->select('id', 'user_id', 'name', 'foo');
+    })
+    ->first();
+	
+Note that you must select the relationship column for both, otherwise Laravel has no idea how to connect the two
+
+If we using relationship and select, we need to add both the primary and foreign key in the select.
+
+-----

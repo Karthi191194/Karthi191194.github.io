@@ -40,3 +40,34 @@ https://medium.com/grevo-techblog/service-provider-in-laravel-3b7267b0576e
 SERVICE PROVIDER 2 TYPES
 1. Normal
 2. Defered - Only loads when application needs it. Check for cache service provider.
+
+
+----------------
+
+EXAMPLE:
+
+Imagine you have a class that manages your integration to a third party service, something like a helper class for Stripe. This is the class that manages all the API calls and logic for integration with the service.
+
+In ‘native PHP’ if you wanted to use a class like this then you might have to instantiate a new object every time you want to use it. This might involve passing in dependencies, an API key, or some other config type item, as is the case with the example below.
+
+$api_key = config(‘services.stripe.api_key’);
+$stripe_helper = new App\Helpers\Stripe($api_key);
+
+We dont need to instance object everytime, for that create a service provider and bind to it.
+
+$this->app->bind(‘App\Helpers\Stripe’, function($app)
+{
+    $api_key = config(‘services.stripe.api_key’);
+    return new \App\Helpers\Stripe($api_key);
+});
+
+Now when we want our Stripe class instantiated we can just use the global app helper like below.
+
+app(‘App\Helpers\Stripe’);
+
+Each time we make the object like this, we’re guaranteed to get it the exact same way. This also includes any time this class is automatically resolved by Laravel (such as in a controller method).
+
+public function getIndex(\App\Helpers\Stripe $stripe)
+{
+    $stripe->getCustomer();
+}
