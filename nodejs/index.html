@@ -1,0 +1,113 @@
+*TO CHECK NODEJS INSTALLATION:
+-> node -v
+-> npm -v
+
+----------------
+nvm - node version manager
+used for using multiple node version
+
+* Install nvm, Once nvm installed use
+* nvm install version_no - command to install node
+* You can install multiple node version in system
+* nvm use version_no - command to swap node version
+
+https://www.youtube.com/watch?v=G8uL0lFFoN0
+--------------------------------------------------------------------------------------------------------------------------
+
+Express - framework of node js
+https://expressjs.com/en/starter/generator.html
+
+----------------
+
+INSTALL EXPRESS GLOBALLY ON THE MACHINE
+-> npm install -g express-generator
+
+For example, the following creates an Express app named myapp. The app will be created in a folder named myapp in the current working directory and the view engine will be set to Pug:
+-> express --view=pug myapp
+
+->  SET DEBUG=myapp:* & npm start
+
+NOTE: everytime we do changes on the files, we need to run 'npm start' command to refresh & start the server.
+
+"nodemon" is a tool that helps develop node.js based applications by automatically restarting the node application when file changes in the directory are detected.
+-> npm install nodemon --save-dev | use only on development purpose
+
+modify in package.json file
+  "scripts": {
+    "start": "nodemon ./bin/www"
+  },
+
+Error: you can use tabs or spaces but not both
+Go to Settings->Preferences...->Language. Check Replace by space. 
+
+-> npm install mysql 
+// Before we get on to connecting to a database, it’s important that you have MySQL installed and configured on your machine.
+
+-> npm install sequelize  - ORM for NODE JS
+
+-> You'll also have to manually install the driver for your database of choice:
+npm install --save mysql2
+
+-> npm install sequelize-cli -g - Install sequelize command line interface
+-> npx sequelize-cli init - 
+This will create following folders
+config, contains config file, which tells CLI how to connect with database
+models, contains all models for your project
+migrations, contains all migration files
+seeders, contains all seed files
+https://sequelize.org/v5/manual/migrations.html
+-> Create .sequelizerc File in the root
+This is a special configuration file. It lets you specify following options that you would usually pass as arguments to CLI
+
+Creating model and migration file - Model name "lead", Column name "email"
+npx sequelize-cli model:generate --name Lead --attributes email:string --force
+
+Do migration
+npx sequelize-cli db:migrate
+
+\bin\www file - initalizing file
+
+let models = require('../models');
+
+return models.sequelize.sync().then(result => {
+    server.listen(port);
+    server.on('error', onError);
+    server.on('listening', onListening);
+})
+
+----------------
+Setting node environment in windows
+Using CLI - SET NODE_ENV=development
+
+----------------
+nodemon
+grunt
+
+seeing list of installed modules - npm list
+----------------
+
+FOLDER STRUCTURE
+
+----------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------
+LEARNING
+----------------
+MYSQL DB CONNECTION & CRUD - https://www.codementor.io/julieisip/learn-rest-api-using-express-js-and-mysql-db-ldflyx8g2

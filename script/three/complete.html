@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <title>3D Model Cube</title>
+      <style>
+         body { margin: 0; }
+         canvas { width: 100%; height: 100%; cursor: pointer; }
+      </style>
+   </head>
+   <body>
+      <div id="3Dmodel"></div>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	  <script src="js/three.js"></script>
+	  <script>
+		var loader = new THREE.TextureLoader();
+		var image1 = loader.load('https://threejsfundamentals.org/threejs/resources/images/flower-1.jpg');
+		var image2 = loader.load('https://threejsfundamentals.org/threejs/resources/images/flower-2.jpg');
+		var image3 = loader.load('https://threejsfundamentals.org/threejs/resources/images/flower-3.jpg');
+		var image4 = loader.load('https://threejsfundamentals.org/threejs/resources/images/flower-4.jpg');
+		var image5 = loader.load('https://threejsfundamentals.org/threejs/resources/images/flower-5.jpg');
+		var image6 = loader.load('https://threejsfundamentals.org/threejs/resources/images/flower-6.jpg');
+	  </script>
+      <script src="js/3Dmodel.js"></script>
+   </body>
+</html>
+<!-- https://codepen.io/dz902i/post/basic-setup-of-three-js -->

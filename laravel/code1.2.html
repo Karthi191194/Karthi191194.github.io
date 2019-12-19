@@ -118,4 +118,11 @@ Note that you must select the relationship column for both, otherwise Laravel ha
 
 If we using relationship and select, we need to add both the primary and foreign key in the select.
 
+// eloquent select with relationship 
+
+$receivers = SIFReceiver::select('id', 'sif_id', 'email')->where('email', $userEmail)->whereDate('expiry_date', '>=', $today)->whereHas('sif', function ( $query)  use ($today, $time_now){
+            $query->whereDate('start_date', '<=', $today);
+        })->with('sif:id,title,format')->get();
+
+sif receivers belongs to sif - so we using 'sif_id' which is a foreign key in first		
 -----

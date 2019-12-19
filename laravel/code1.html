@@ -207,7 +207,22 @@ $shares = Transaction::where('playerId', '=', $player_id)->select(\DB::raw('sum(
 	
 ............................................................................
 
+Model Tricks -
 
+class Post extends Model {
+ 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+ 
+    public function parentComments()
+    {
+        return $this->comments()->where('parent_id', 0);
+    }
+}
+
+............................................................................
 
 
 https://medium.com/@winni4eva/laravels-route-model-bindings-f051b088e542
